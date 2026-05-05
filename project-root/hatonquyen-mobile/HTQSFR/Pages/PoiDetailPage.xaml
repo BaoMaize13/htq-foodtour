@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Pages.PoiDetailPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#121212}">
+
+	<Grid RowDefinitions="300,*">
+
+		<Grid Grid.Row="0">
+
+			<Image Source="{Binding CoverImage}"
+                   Aspect="AspectFill"
+                   HorizontalOptions="Fill"
+                   VerticalOptions="Fill" />
+
+			<Grid Padding="16,50,16,0"
+                  ColumnDefinitions="Auto,*,Auto"
+                  VerticalOptions="Start"
+                  ZIndex="99">
+
+				<Border WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#EFFFFFFF"
+                        StrokeThickness="0"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="22" />
+					</Border.StrokeShape>
+
+					<Border.GestureRecognizers>
+						<TapGestureRecognizer Tapped="OnBackTapped" />
+					</Border.GestureRecognizers>
+
+					<Image Source="ic_back.png"
+                           WidthRequest="22"
+                           HeightRequest="22"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+				</Border>
+
+				<Border Grid.Column="2"
+                        WidthRequest="44"
+                        HeightRequest="44"
+                        BackgroundColor="#EFFFFFFF"
+                        StrokeThickness="0"
+                        HorizontalOptions="End"
+                        VerticalOptions="Start">
+					<Border.StrokeShape>
+						<RoundRectangle CornerRadius="22" />
+					</Border.StrokeShape>
+
+					<Border.GestureRecognizers>
+						<TapGestureRecognizer Tapped="OnFavoriteTapped" />
+					</Border.GestureRecognizers>
+
+					<Image x:Name="FavoriteIcon"
+                           Source="ic_unlike.png"
+                           WidthRequest="22"
+                           HeightRequest="22"
+                           Aspect="AspectFit"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+				</Border>
+
+			</Grid>
+		</Grid>
+
+		<Border Grid.Row="1"
+                BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#121212}"
+                StrokeThickness="0">
+			<Border.StrokeShape>
+				<RoundRectangle CornerRadius="28,28,0,0" />
+			</Border.StrokeShape>
+
+			<ScrollView>
+				<VerticalStackLayout Padding="20,20,20,30"
+                                     Spacing="18">
+
+					<VerticalStackLayout Spacing="6">
+
+						<Label Text="{Binding Name}"
+                               FontSize="26"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+						<HorizontalStackLayout Spacing="8">
+							<Label Text="★"
+                                   FontSize="16"
+                                   TextColor="#F97316" />
+
+							<Label Text="{Binding RatingText}"
+                                   FontSize="15"
+                                   TextColor="{AppThemeBinding Light=#555555, Dark=#CFCFCF}" />
+
+							<Label Text="•"
+                                   FontSize="15"
+                                   TextColor="{AppThemeBinding Light=#999999, Dark=#AAAAAA}" />
+
+							<Label Text="{Binding Category}"
+                                   FontSize="15"
+                                   TextColor="{AppThemeBinding Light=#555555, Dark=#CFCFCF}" />
+						</HorizontalStackLayout>
+
+						<Label Text="{Binding Address}"
+                               FontSize="14"
+                               TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}" />
+					</VerticalStackLayout>
+
+					<Grid ColumnDefinitions="*,*,*"
+                          ColumnSpacing="12">
+
+						<Border Grid.Column="0"
+                                BackgroundColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                                StrokeThickness="0"
+                                Padding="0,14">
+							<Border.StrokeShape>
+								<RoundRectangle CornerRadius="16" />
+							</Border.StrokeShape>
+
+							<Border.GestureRecognizers>
+								<TapGestureRecognizer Tapped="OnPlayAudioTapped" />
+							</Border.GestureRecognizers>
+
+							<Label Text="{Binding PlayAudioText}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="13"
+                                   FontAttributes="Bold"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"
+                                   TextColor="{AppThemeBinding Light=White, Dark=#111111}" />
+						</Border>
+
+						<Border Grid.Column="1"
+                                BackgroundColor="{AppThemeBinding Light=#EEE8E6, Dark=#1E1E1E}"
+                                StrokeThickness="0"
+                                Padding="0,14">
+							<Border.StrokeShape>
+								<RoundRectangle CornerRadius="16" />
+							</Border.StrokeShape>
+
+							<Border.GestureRecognizers>
+								<TapGestureRecognizer Tapped="OnSaveTapped" />
+							</Border.GestureRecognizers>
+
+							<Label Text="{Binding SaveText}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="14"
+                                   FontAttributes="Bold"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=White}" />
+						</Border>
+
+						<Border Grid.Column="2"
+                                BackgroundColor="{AppThemeBinding Light=#EEE8E6, Dark=#1E1E1E}"
+                                StrokeThickness="0"
+                                Padding="0,14">
+							<Border.StrokeShape>
+								<RoundRectangle CornerRadius="16" />
+							</Border.StrokeShape>
+
+							<Border.GestureRecognizers>
+								<TapGestureRecognizer Tapped="OnMapTapped" />
+							</Border.GestureRecognizers>
+
+							<Label Text="{Binding MapText}"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   FontSize="14"
+                                   MaxLines="1"
+                                   LineBreakMode="TailTruncation"
+                                   TextColor="{AppThemeBinding Light=#333333, Dark=White}" />
+						</Border>
+					</Grid>
+
+					<VerticalStackLayout Spacing="8">
+						<Label Text="{Binding AboutTitle}"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+						<Label Text="{Binding Description}"
+                               FontSize="14"
+                               LineHeight="1.4"
+                               TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+					</VerticalStackLayout>
+
+					<VerticalStackLayout Spacing="12">
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="{Binding FeaturedMenuTitle}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+							<Label Grid.Column="1"
+                                   Text="{Binding SeeAllText}"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}" />
+						</Grid>
+
+						<CollectionView ItemsSource="{Binding MenuItems}"
+                                        HeightRequest="210"
+                                        SelectionMode="None">
+							<CollectionView.ItemsLayout>
+								<LinearItemsLayout Orientation="Horizontal"
+                                                   ItemSpacing="12" />
+							</CollectionView.ItemsLayout>
+
+							<CollectionView.ItemTemplate>
+								<DataTemplate x:DataType="{x:Null}">
+									<VerticalStackLayout WidthRequest="150"
+                                                         Spacing="8">
+										<Border HeightRequest="130"
+                                                BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                                                StrokeThickness="0">
+											<Border.StrokeShape>
+												<RoundRectangle CornerRadius="16" />
+											</Border.StrokeShape>
+
+											<Image Source="{Binding Image}"
+                                                   Aspect="AspectFill" />
+										</Border>
+
+										<Label Text="{Binding Name}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light=#1E1E1E, Dark=White}"
+                                               LineBreakMode="TailTruncation" />
+
+										<Label Text="{Binding Price}"
+                                               FontSize="14"
+                                               TextColor="#F97316" />
+									</VerticalStackLayout>
+								</DataTemplate>
+							</CollectionView.ItemTemplate>
+						</CollectionView>
+					</VerticalStackLayout>
+
+					<VerticalStackLayout Spacing="10">
+						<Grid ColumnDefinitions="*,Auto">
+							<Label Text="{Binding ReviewsTitle}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+							<Label Grid.Column="1"
+                                   Text="{Binding SeeAllText}"
+                                   FontSize="14"
+                                   TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}">
+								<Label.GestureRecognizers>
+									<TapGestureRecognizer Tapped="OnSeeAllReviewsTapped" />
+								</Label.GestureRecognizers>
+							</Label>
+						</Grid>
+
+						<Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                                StrokeThickness="0"
+                                Padding="14">
+							<Border.StrokeShape>
+								<RoundRectangle CornerRadius="16" />
+							</Border.StrokeShape>
+
+							<VerticalStackLayout Spacing="8">
+								<Label Text="{Binding ReviewUser}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#222222, Dark=White}" />
+
+								<Label Text="{Binding ReviewText}"
+                                       FontSize="14"
+                                       TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+							</VerticalStackLayout>
+						</Border>
+
+						<Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                                StrokeThickness="0"
+                                Padding="14">
+							<Border.StrokeShape>
+								<RoundRectangle CornerRadius="16" />
+							</Border.StrokeShape>
+
+							<VerticalStackLayout Spacing="10">
+								<Label Text="{Binding ReviewFormTitle}"
+                                       FontSize="15"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#222222, Dark=White}" />
+
+								<Entry x:Name="ReviewRatingEntry"
+                                       Placeholder="{Binding ReviewRatingPlaceholder}"
+                                       Keyboard="Numeric"
+                                       MaxLength="1"
+                                       FontSize="14"
+                                       TextColor="{AppThemeBinding Light=#222222, Dark=White}"
+                                       PlaceholderColor="{AppThemeBinding Light=#999999, Dark=#8A8A8A}" />
+
+								<Editor x:Name="ReviewCommentEditor"
+                                        Placeholder="{Binding ReviewCommentPlaceholder}"
+                                        AutoSize="TextChanges"
+                                        HeightRequest="90"
+                                        MaxLength="1500"
+                                        FontSize="14"
+                                        TextColor="{AppThemeBinding Light=#222222, Dark=White}"
+                                        PlaceholderColor="{AppThemeBinding Light=#999999, Dark=#8A8A8A}" />
+
+								<Button Text="{Binding SubmitReviewText}"
+                                        Clicked="OnSubmitReviewClicked"
+                                        BackgroundColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                                        TextColor="{AppThemeBinding Light=White, Dark=#111111}"
+                                        CornerRadius="16"
+                                        FontAttributes="Bold"
+                                        HeightRequest="48" />
+							</VerticalStackLayout>
+						</Border>
+					</VerticalStackLayout>
+
+				</VerticalStackLayout>
+			</ScrollView>
+		</Border>
+
+	</Grid>
+</ContentPage>

@@ -1,0 +1,9 @@
+.vs/
+.github/
+bin/
+obj/
+node_modules/
+.env
+*.log
+*.rar
+*.zip

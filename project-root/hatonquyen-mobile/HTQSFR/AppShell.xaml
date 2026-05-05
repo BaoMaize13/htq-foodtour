@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="HTQSFR.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:HTQSFR.Pages"
+    Shell.FlyoutBehavior="Disabled"
+    Title="HTQSFR"
+    Shell.BackgroundColor="{AppThemeBinding Light=White, Dark=#121212}"
+    Shell.ForegroundColor="{AppThemeBinding Light=Black, Dark=White}"
+    Shell.TitleColor="{AppThemeBinding Light=Black, Dark=White}"
+    Shell.DisabledColor="{AppThemeBinding Light=#C2C2C2, Dark=#555555}"
+    Shell.TabBarBackgroundColor="{AppThemeBinding Light=White, Dark=#121212}"
+    Shell.TabBarForegroundColor="{AppThemeBinding Light=Black, Dark=White}"
+    Shell.TabBarTitleColor="{AppThemeBinding Light=Black, Dark=White}"
+    Shell.TabBarUnselectedColor="{AppThemeBinding Light=#888888, Dark=#A8A8A8}">
+
+	<!-- Startup / Auth -->
+	<ShellContent
+        Route="splash"
+        Shell.TabBarIsVisible="False"
+        ContentTemplate="{DataTemplate pages:SplashPage}" />
+
+	<ShellContent
+        Route="login"
+        Shell.TabBarIsVisible="False"
+        ContentTemplate="{DataTemplate pages:LoginPage}" />
+
+	<ShellContent
+        Route="register"
+        Shell.TabBarIsVisible="False"
+        ContentTemplate="{DataTemplate pages:RegisterPage}" />
+
+	<!-- Main app -->
+	<TabBar Route="main">
+
+		<ShellContent
+            x:Name="HomeTab"
+            Title="Home"
+            Route="home"
+            Icon="ic_home.png"
+            ContentTemplate="{DataTemplate pages:MainPage}" />
+
+		<ShellContent
+            x:Name="SearchTab"
+            Title="Search"
+            Route="search"
+            Icon="ic_search.png"
+            ContentTemplate="{DataTemplate pages:SearchPage}" />
+
+		<ShellContent
+            x:Name="SavedTab"
+            Title="Saved"
+            Route="saved"
+            Icon="ic_saved.png"
+            ContentTemplate="{DataTemplate pages:SavedPage}" />
+
+		<ShellContent
+            x:Name="ProfileTab"
+            Title="Profile"
+            Route="profile"
+            Icon="ic_profile.png"
+            ContentTemplate="{DataTemplate pages:ProfilePage}" />
+
+	</TabBar>
+
+</Shell>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="HTQSFR.Pages.RegisterPage"
+             ios:Page.UseSafeArea="False"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F3F3F3">
+
+    <Grid RowDefinitions="0.48*,0.52*"
+          BackgroundColor="#F3F3F3">
+
+        <!-- nền trên -->
+        <Grid Grid.Row="0">
+            <Border StrokeThickness="0"
+                    Padding="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="0,0,27,27" />
+                </Border.StrokeShape>
+
+                <Image Source="bg_register.png"
+                       Aspect="AspectFill" />
+            </Border>
+        </Grid>
+
+        <!-- nền dưới -->
+        <Grid Grid.Row="1"
+              BackgroundColor="#F3F3F3" />
+
+        <!-- card đè lên cả 2 phần -->
+        <ScrollView Grid.RowSpan="2">
+            <Grid>
+                <Border BackgroundColor="#FAFAFA"
+                        StrokeThickness="0"
+                        Padding="24,26,24,30"
+                        Margin="24,300,24,24"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Start">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="28" />
+                    </Border.StrokeShape>
+
+                    <Border.Shadow>
+                        <Shadow Brush="#33000000"
+                                Offset="0,6"
+                                Radius="18"
+                                Opacity="0.25" />
+                    </Border.Shadow>
+
+                    <VerticalStackLayout Spacing="16">
+
+                        <!-- title nằm trong card -->
+                        <Label x:Name="TitleLabel"
+                               Text="Register"
+                               FontSize="30"
+                               FontAttributes="Bold"
+                               TextColor="Black"
+                               HorizontalTextAlignment="Center"
+                               LineBreakMode="WordWrap"
+                               MaxLines="2" />
+
+                        <!-- Full Name -->
+                        <Border BackgroundColor="White"
+                                Stroke="#D9D9D9"
+                                StrokeThickness="1.2"
+                                StrokeShape="RoundRectangle 14"
+                                HeightRequest="58"
+                                Padding="14,0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnFullNameBorderTapped" />
+                            </Border.GestureRecognizers>
+
+                            <Grid HeightRequest="58">
+                                <Entry x:Name="FullNameEntry"
+                                       Margin="0,8"
+                                       HeightRequest="42"
+                                       BackgroundColor="Transparent"
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Fill"
+                                       TextChanged="OnFullNameTextChanged"
+                                       Focused="OnFullNameFocused"
+                                       Unfocused="OnFullNameUnfocused" />
+
+                                <Label x:Name="FullNamePlaceholder"
+                                       Text="Full Name"
+                                       TextColor="#7A7A7A"
+                                       FontSize="16"
+                                       Margin="2,0,0,0"
+                                       VerticalOptions="Center"
+                                       InputTransparent="True" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Email -->
+                        <Border BackgroundColor="White"
+                                Stroke="#D9D9D9"
+                                StrokeThickness="1.2"
+                                StrokeShape="RoundRectangle 14"
+                                HeightRequest="58"
+                                Padding="14,0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnEmailBorderTapped" />
+                            </Border.GestureRecognizers>
+
+                            <Grid HeightRequest="58">
+                                <Entry x:Name="EmailEntry"
+                                       Margin="0,8"
+                                       HeightRequest="42"
+                                       BackgroundColor="Transparent"
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       Keyboard="Email"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Fill"
+                                       TextChanged="OnEmailTextChanged"
+                                       Focused="OnEmailFocused"
+                                       Unfocused="OnEmailUnfocused" />
+
+                                <Label x:Name="EmailPlaceholder"
+                                       Text="Email"
+                                       TextColor="#7A7A7A"
+                                       FontSize="16"
+                                       Margin="2,0,0,0"
+                                       VerticalOptions="Center"
+                                       InputTransparent="True" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Password -->
+                        <Border BackgroundColor="White"
+                                Stroke="#D9D9D9"
+                                StrokeThickness="1.2"
+                                StrokeShape="RoundRectangle 14"
+                                HeightRequest="58"
+                                Padding="14,0">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPasswordBorderTapped" />
+                            </Border.GestureRecognizers>
+
+                            <Grid HeightRequest="58">
+                                <Entry x:Name="PasswordEntry"
+                                       Margin="0,8"
+                                       HeightRequest="42"
+                                       BackgroundColor="Transparent"
+                                       TextColor="Black"
+                                       FontSize="16"
+                                       IsPassword="True"
+                                       VerticalOptions="Center"
+                                       HorizontalOptions="Fill"
+                                       TextChanged="OnPasswordTextChanged"
+                                       Focused="OnPasswordFocused"
+                                       Unfocused="OnPasswordUnfocused" />
+
+                                <Label x:Name="PasswordPlaceholder"
+                                       Text="Password"
+                                       TextColor="#7A7A7A"
+                                       FontSize="16"
+                                       Margin="2,0,0,0"
+                                       VerticalOptions="Center"
+                                       InputTransparent="True" />
+                            </Grid>
+                        </Border>
+
+                        <!-- Register button -->
+                        <Button x:Name="RegisterButton"
+                                Text="Register"
+                                Clicked="OnRegisterClicked"
+                                WidthRequest="170"
+                                HeightRequest="58"
+                                CornerRadius="16"
+                                BackgroundColor="#D8B96E"
+                                BorderColor="White"
+                                BorderWidth="1.2"
+                                TextColor="Black"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                HorizontalOptions="Center" />
+
+                        <!-- Social -->
+                        <HorizontalStackLayout Spacing="18"
+                                               HorizontalOptions="Center"
+                                               Margin="0,6,0,0">
+
+                            <Image Source="google_logo.jpg"
+                                   WidthRequest="30"
+                                   HeightRequest="30"
+                                   Aspect="AspectFit" />
+
+                            <Image Source="fb_logo.jpg"
+                                   WidthRequest="30"
+                                   HeightRequest="30"
+                                   Aspect="AspectFit" />
+
+                            <Image Source="apple_logo.jpg"
+                                   WidthRequest="30"
+                                   HeightRequest="30"
+                                   Aspect="AspectFit" />
+                        </HorizontalStackLayout>
+
+                        <!-- Login -->
+                        <VerticalStackLayout Spacing="4"
+                                             Margin="0,8,0,0"
+                                             HorizontalOptions="Center">
+
+                            <Label x:Name="LoginPromptLabel"
+                                   Text="Already have an account?"
+                                   FontSize="15"
+                                   TextColor="#666666"
+                                   HorizontalTextAlignment="Center"
+                                   LineBreakMode="WordWrap"
+                                   MaxLines="2" />
+
+                            <Label x:Name="LoginLinkLabel"
+                                   Text="Login"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextDecorations="Underline"
+                                   TextColor="#D8B96E"
+                                   HorizontalTextAlignment="Center">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnLoginTapped" />
+                                </Label.GestureRecognizers>
+                            </Label>
+                        </VerticalStackLayout>
+
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+        </ScrollView>
+
+    </Grid>
+</ContentPage>

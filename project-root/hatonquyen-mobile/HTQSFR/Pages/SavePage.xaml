@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Pages.SavedPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#F6F6F6">
+
+    <Grid RowDefinitions="Auto,Auto,*"
+          Padding="16,40,16,20">
+
+        <!-- Title -->
+        <Label Grid.Row="0"
+               Text="{Binding TitleText}"
+               FontSize="28"
+               FontAttributes="Bold"
+               TextColor="#1F1F1F" />
+
+        <!-- Filters -->
+        <HorizontalStackLayout Grid.Row="1"
+                               Margin="0,20,0,14"
+                               Spacing="12">
+
+            <Border Padding="18,9"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnTimeFilterTapped" />
+                </Border.GestureRecognizers>
+
+                <Label Text="{Binding Filters[0].Title}"
+                       FontSize="14"
+                       TextColor="#333333" />
+            </Border>
+
+            <Border Padding="18,9"
+                    BackgroundColor="White"
+                    StrokeThickness="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="18" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnNameFilterTapped" />
+                </Border.GestureRecognizers>
+
+                <Label Text="{Binding Filters[1].Title}"
+                       FontSize="14"
+                       TextColor="#333333" />
+            </Border>
+
+        </HorizontalStackLayout>
+
+        <!-- Saved list -->
+        <Grid Grid.Row="2">
+
+            <CollectionView ItemsSource="{Binding SavedItems}"
+                            SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Border Margin="0,0,0,14"
+                                Padding="12"
+                                BackgroundColor="White"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="18" />
+                            </Border.StrokeShape>
+
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnSavedItemTapped" />
+                            </Border.GestureRecognizers>
+
+                            <Grid ColumnDefinitions="92,*"
+                                  ColumnSpacing="14">
+
+                                <Border WidthRequest="92"
+                                        HeightRequest="92"
+                                        BackgroundColor="#F2F2F2"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+
+                                    <Image Source="{Binding ImageUrl}"
+                                           Aspect="AspectFill" />
+                                </Border>
+
+                                <VerticalStackLayout Grid.Column="1"
+                                                     Spacing="6"
+                                                     VerticalOptions="Center">
+
+                                    <Label Text="{Binding Name}"
+                                           FontSize="17"
+                                           FontAttributes="Bold"
+                                           TextColor="#1F1F1F"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <Label Text="{Binding BadgeText}"
+                                           FontSize="13"
+                                           TextColor="#F97316"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <Label Text="{Binding Address}"
+                                           FontSize="13"
+                                           TextColor="#777777"
+                                           LineBreakMode="TailTruncation" />
+
+                                    <HorizontalStackLayout Spacing="6">
+                                        <Label Text="★"
+                                               FontSize="13"
+                                               TextColor="#F97316" />
+
+                                        <Label Text="{Binding RatingText}"
+                                               FontSize="13"
+                                               TextColor="#666666" />
+
+                                        <Label Text="•"
+                                               FontSize="13"
+                                               TextColor="#999999" />
+
+                                        <Label Text="{Binding TimeText}"
+                                               FontSize="13"
+                                               TextColor="#666666"
+                                               LineBreakMode="TailTruncation" />
+                                    </HorizontalStackLayout>
+
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <VerticalStackLayout HorizontalOptions="Center"
+                                 VerticalOptions="Center"
+                                 Spacing="8"
+                                 IsVisible="{Binding IsEmpty}">
+                <Label Text="♡"
+                       FontSize="42"
+                       HorizontalTextAlignment="Center"
+                       TextColor="#BBBBBB" />
+
+                <Label Text="{Binding EmptyText}"
+                       FontSize="15"
+                       TextColor="#777777"
+                       HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+
+        </Grid>
+    </Grid>
+</ContentPage>

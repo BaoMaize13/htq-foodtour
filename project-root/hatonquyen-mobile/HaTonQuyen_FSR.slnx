@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="HTQSFR/HTQSFR.csproj">
+    <Deploy Solution="Debug|*" />
+  </Project>
+</Solution>

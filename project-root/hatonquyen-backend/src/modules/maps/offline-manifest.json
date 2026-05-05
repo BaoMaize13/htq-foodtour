@@ -1,0 +1,31 @@
+{
+  "defaultMode": "hybrid",
+  "latestPackVersion": "2026-04-27-core",
+  "cloudStyleUrl": "/api/maps/styles/cloud/style.json",
+  "packs": [
+    {
+      "version": "2026-04-27-core",
+      "displayName": "Ha Ton Quyen Core Pack",
+      "files": [
+        {
+          "path": "basemap.pmtiles",
+          "url": "/api/maps/packs/2026-04-27-core/basemap.pmtiles",
+          "sha256": "PUT_REAL_SHA256_HERE",
+          "size": 0
+        },
+        {
+          "path": "styles/offline/style.json",
+          "url": "/api/maps/packs/2026-04-27-core/styles/offline/style.json",
+          "sha256": "PUT_REAL_SHA256_HERE",
+          "size": 0
+        },
+        {
+          "path": "styles/hybrid/style.json",
+          "url": "/api/maps/packs/2026-04-27-core/styles/hybrid/style.json",
+          "sha256": "PUT_REAL_SHA256_HERE",
+          "size": 0
+        }
+      ]
+    }
+  ]
+}

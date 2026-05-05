@@ -1,0 +1,25 @@
+{
+  "defaultMode": "cloud",
+  "latestPackVersion": "2026-04-27-core",
+  "cloudStyleUrl": "/api/maps/styles/cloud/style.json",
+  "packs": [
+    {
+      "version": "2026-04-27-core",
+      "displayName": "Ha Ton Quyen Placeholder Pack",
+      "files": [
+        {
+          "path": "styles/offline/style.json",
+          "url": "/api/maps/packs/2026-04-27-core/styles/offline/style.json",
+          "sha256": "7fd3fe543d01568cc08241984678c5f5c226c216494f66578489ade3da1732b1",
+          "size": 429
+        },
+        {
+          "path": "styles/hybrid/style.json",
+          "url": "/api/maps/packs/2026-04-27-core/styles/hybrid/style.json",
+          "sha256": "2d706ccf6ebf426e8d5a7e761684158d3bf3ca467bd3fd547d24d2a55066e91a",
+          "size": 428
+        }
+      ]
+    }
+  ]
+}

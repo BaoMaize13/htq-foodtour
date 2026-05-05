@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Pages.MainPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#121212}">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="16,34,16,26"
+                             Spacing="28">
+
+            <Grid ColumnDefinitions="*,Auto">
+                <VerticalStackLayout Spacing="4">
+                    <Label Text="{Binding GreetingText}"
+                           FontSize="16"
+                           TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}" />
+
+                    <Label Text="{Binding HomeTitleText}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+                </VerticalStackLayout>
+
+                <Border Grid.Column="1"
+                        WidthRequest="42"
+                        HeightRequest="42"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                        StrokeThickness="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="21" />
+                    </Border.StrokeShape>
+
+                    <Label Text="~"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="#F97316"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center" />
+                </Border>
+            </Grid>
+
+            <VerticalStackLayout Spacing="16">
+                <Label Text="{Binding CategoriesTitle}"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                <CollectionView ItemsSource="{Binding Categories}"
+                                SelectionMode="None"
+                                HeightRequest="115">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="18" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <VerticalStackLayout WidthRequest="82"
+                                                 Spacing="10"
+                                                 HorizontalOptions="Center">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                                </VerticalStackLayout.GestureRecognizers>
+
+                                <Grid WidthRequest="72"
+                                      HeightRequest="72"
+                                      HorizontalOptions="Center">
+                                    <Image Source="{Binding ImageUrl}"
+                                           Aspect="AspectFill"
+                                           WidthRequest="72"
+                                           HeightRequest="72"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center">
+                                        <Image.Clip>
+                                            <EllipseGeometry Center="36,36"
+                                                             RadiusX="36"
+                                                             RadiusY="36" />
+                                        </Image.Clip>
+                                    </Image>
+                                </Grid>
+
+                                <Label Text="{Binding Title}"
+                                       FontSize="13"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#333333, Dark=White}"
+                                       HorizontalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="14">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="{Binding PopularDishTitle}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                    <Label Grid.Column="1"
+                           Text="{Binding SeeAllText}"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSeeAllTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <CollectionView ItemsSource="{Binding PopularDishes}"
+                                SelectionMode="None"
+                                HeightRequest="240">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="14" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <VerticalStackLayout WidthRequest="168"
+                                                 Spacing="8">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPoiTapped" />
+                                </VerticalStackLayout.GestureRecognizers>
+
+                                <Border WidthRequest="168"
+                                        HeightRequest="140"
+                                        BackgroundColor="Transparent"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+
+                                    <Image Source="{Binding ImageUrl}"
+                                           Aspect="AspectFill"
+                                           WidthRequest="168"
+                                           HeightRequest="140"
+                                           HorizontalOptions="Fill"
+                                           VerticalOptions="Fill" />
+                                </Border>
+
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+
+                                <Label Text="{Binding DistanceText}"
+                                       FontSize="12"
+                                       TextColor="#2563EB"
+                                       IsVisible="{Binding HasDistance}" />
+
+                                <Label Text="{Binding BadgeText}"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="14">
+                <Grid ColumnDefinitions="*,Auto">
+                    <Label Text="{Binding PopularDrinkTitle}"
+                           FontSize="20"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                    <Label Grid.Column="1"
+                           Text="{Binding SeeAllText}"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnSeeAllTapped" />
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+
+                <CollectionView ItemsSource="{Binding PopularDrinks}"
+                                SelectionMode="None"
+                                HeightRequest="240">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal"
+                                           ItemSpacing="14" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <VerticalStackLayout WidthRequest="168"
+                                                 Spacing="8">
+                                <VerticalStackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnPoiTapped" />
+                                </VerticalStackLayout.GestureRecognizers>
+
+                                <Border WidthRequest="168"
+                                        HeightRequest="140"
+                                        BackgroundColor="Transparent"
+                                        StrokeThickness="0">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="16" />
+                                    </Border.StrokeShape>
+
+                                    <Image Source="{Binding ImageUrl}"
+                                           Aspect="AspectFill"
+                                           WidthRequest="168"
+                                           HeightRequest="140"
+                                           HorizontalOptions="Fill"
+                                           VerticalOptions="Fill" />
+                                </Border>
+
+                                <Label Text="{Binding Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+
+                                <Label Text="{Binding DistanceText}"
+                                       FontSize="12"
+                                       TextColor="#2563EB"
+                                       IsVisible="{Binding HasDistance}" />
+
+                                <Label Text="{Binding BadgeText}"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

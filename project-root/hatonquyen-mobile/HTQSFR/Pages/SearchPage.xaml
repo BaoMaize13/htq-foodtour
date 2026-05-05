@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:HTQSFR.Controls"
+             x:Class="HTQSFR.Pages.SearchPage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#121212}">
+
+    <Grid>
+        <ScrollView>
+            <VerticalStackLayout Padding="20,20,20,90"
+                                 Spacing="16">
+
+                <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                        Stroke="#F97316"
+                        StrokeThickness="2"
+                        StrokeShape="RoundRectangle 14"
+                        HeightRequest="56"
+                        Padding="14,0">
+                    <Grid ColumnDefinitions="24,*"
+                          ColumnSpacing="12"
+                          HeightRequest="56"
+                          VerticalOptions="Center">
+
+                        <Label Grid.Column="0"
+                               Text="⌕"
+                               FontSize="18"
+                               TextColor="#F97316"
+                               HorizontalTextAlignment="Center"
+                               VerticalTextAlignment="Center"
+                               VerticalOptions="Center" />
+
+                        <Entry x:Name="SearchEntry"
+                               Grid.Column="1"
+                               Placeholder="Search food places..."
+                               Text="{Binding SearchText}"
+                               PlaceholderColor="{AppThemeBinding Light=#9CA3AF, Dark=#AFAFAF}"
+                               TextColor="{AppThemeBinding Light=#111827, Dark=White}"
+                               FontSize="17"
+                               BackgroundColor="Transparent"
+                               ClearButtonVisibility="WhileEditing"
+                               HorizontalOptions="Fill"
+                               VerticalOptions="Center"
+                               HeightRequest="40"
+                               Margin="0,4,0,0" />
+                    </Grid>
+                </Border>
+
+                <ScrollView Orientation="Horizontal">
+                    <HorizontalStackLayout Spacing="10">
+
+                        <Border Padding="16,8"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnLocationChipTapped" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[0].IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[0].IsSelected}"
+                                             Value="False">
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light=#EEEEEE, Dark=#2A2A2A}" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label x:Name="LocationChipLabel"
+                                   Text="Location"
+                                   FontSize="13">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[0].IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[0].IsSelected}"
+                                                 Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+
+                        <Border Padding="16,8"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnNearbyChipTapped" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[1].IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[1].IsSelected}"
+                                             Value="False">
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light=#EEEEEE, Dark=#2A2A2A}" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label x:Name="NearbyChipLabel"
+                                   Text="Nearby"
+                                   FontSize="13">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[1].IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[1].IsSelected}"
+                                                 Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+
+                        <Border Padding="16,8"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnPriceChipTapped" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[2].IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[2].IsSelected}"
+                                             Value="False">
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light=#EEEEEE, Dark=#2A2A2A}" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label x:Name="PriceChipLabel"
+                                   Text="Price"
+                                   FontSize="13">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[2].IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[2].IsSelected}"
+                                                 Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+
+                        <Border Padding="16,8"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 18">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="OnTypeChipTapped" />
+                            </Border.GestureRecognizers>
+                            <Border.Triggers>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[3].IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BackgroundColor" Value="Black" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="Border"
+                                             Binding="{Binding Filters[3].IsSelected}"
+                                             Value="False">
+                                    <Setter Property="BackgroundColor"
+                                            Value="{AppThemeBinding Light=#EEEEEE, Dark=#2A2A2A}" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label x:Name="TypeChipLabel"
+                                   Text="Type"
+                                   FontSize="13">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[3].IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="TextColor" Value="White" />
+                                        <Setter Property="FontAttributes" Value="Bold" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Filters[3].IsSelected}"
+                                                 Value="False">
+                                        <Setter Property="TextColor"
+                                                Value="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+                <Border IsVisible="{Binding IsLocationMode}"
+                        BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                        StrokeThickness="0"
+                        Padding="0">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="18" />
+                    </Border.StrokeShape>
+
+                    <Grid RowDefinitions="240,Auto">
+
+                        <Grid Grid.Row="0"
+                              HeightRequest="240">
+
+                            <WebView x:Name="MapWebView"
+                                     HeightRequest="240"
+                                     Navigating="OnMapNavigating"
+                                     InputTransparent="True" />
+
+                            <Border BackgroundColor="Transparent">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="OnOpenFullMapTapped" />
+                                </Border.GestureRecognizers>
+                            </Border>
+
+                            <Border BackgroundColor="#80000000"
+                                    StrokeThickness="0"
+                                    Padding="10,6"
+                                    Margin="12"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Start">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="12" />
+                                </Border.StrokeShape>
+
+                                <Label x:Name="OpenFullMapLabel"
+                                       Text="Open full map"
+                                       FontSize="12"
+                                       TextColor="White" />
+                            </Border>
+                        </Grid>
+
+                        <Border Grid.Row="1"
+                                BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                                StrokeThickness="0"
+                                Padding="14"
+                                IsVisible="{Binding HasSelectedPoi}">
+                            <VerticalStackLayout Spacing="8">
+                                <Label Text="{Binding SelectedPoi.Name}"
+                                       FontSize="16"
+                                       FontAttributes="Bold"
+                                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                                <Label Text="{Binding SelectedPoi.Address}"
+                                       FontSize="13"
+                                       TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+
+                                <Label Text="{Binding SelectedPoi.DistanceText}"
+                                       FontSize="12"
+                                       TextColor="#2563EB"
+                                       IsVisible="{Binding SelectedPoi.HasDistance}" />
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Label Text="★"
+                                           FontSize="14"
+                                           TextColor="#F97316" />
+                                    <Label Text="{Binding SelectedPoi.RatingText}"
+                                           FontSize="14"
+                                           TextColor="{AppThemeBinding Light=#555555, Dark=#D0D0D0}" />
+                                </HorizontalStackLayout>
+
+                                <Border BackgroundColor="#F97316"
+                                        StrokeThickness="0"
+                                        Padding="0,12">
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="14" />
+                                    </Border.StrokeShape>
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnViewPoiDetailTapped" />
+                                    </Border.GestureRecognizers>
+
+                                    <Label x:Name="ViewDetailsLabel"
+                                           Text="View details"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center"
+                                           FontSize="14"
+                                           FontAttributes="Bold"
+                                           TextColor="White" />
+                                </Border>
+                            </VerticalStackLayout>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <VerticalStackLayout Spacing="8">
+                    <Label x:Name="TopPlacesLabel"
+                           Text="Top Hà Tôn Quyền Food Places"
+                           FontSize="18"
+                           FontAttributes="Bold"
+                           TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                    <HorizontalStackLayout Spacing="6">
+                        <Label Text="★" TextColor="#FF4D2D" FontSize="14" />
+                        <Label Text="★" TextColor="#FF4D2D" FontSize="14" />
+                        <Label Text="★" TextColor="#FF4D2D" FontSize="14" />
+                        <Label Text="★" TextColor="#FF4D2D" FontSize="14" />
+                        <Label Text="★" TextColor="#FF4D2D" FontSize="14" />
+                        <Label x:Name="ResultsCountLabel"
+                               Text="15 results"
+                               Margin="8,0,0,0"
+                               FontSize="15"
+                               TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout Spacing="14">
+                        <Label x:Name="DistrictLabel"
+                               Text="⌖ District 11"
+                               FontSize="14"
+                               TextColor="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                        <Label x:Name="PriceRangeLabel"
+                               Text="⌂ $$"
+                               FontSize="14"
+                               TextColor="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                        <Label x:Name="OpenNowLabel"
+                               Text="✕ Open Now"
+                               FontSize="14"
+                               TextColor="{AppThemeBinding Light=#444444, Dark=#D0D0D0}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+
+                <CollectionView ItemsSource="{Binding Places}"
+                                SelectionMode="None">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical"
+                                           ItemSpacing="18" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="{x:Null}">
+                            <VerticalStackLayout Spacing="8">
+
+                                <Border StrokeThickness="0"
+                                        BackgroundColor="Transparent">
+                                    <Border.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="OnPlaceTapped" />
+                                    </Border.GestureRecognizers>
+
+                                    <controls:FoodCardView
+                                        Title="{Binding Name}"
+                                        ImageUrl="{Binding ImageUrl}"
+                                        RatingText="{Binding RatingText}"
+                                        PriceText="{Binding PriceText}"
+                                        TimeText="{Binding TimeText}"
+                                        BadgeText="{Binding BadgeText}"
+                                        IsFavorite="{Binding IsFavorite}" />
+                                </Border>
+
+                                <VerticalStackLayout Spacing="4">
+                                    <Label Text="{Binding Address}"
+                                           FontSize="12"
+                                           LineBreakMode="TailTruncation"
+                                           TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+
+                                    <Label Text="{Binding DistanceText}"
+                                           FontSize="12"
+                                           TextColor="#2563EB"
+                                           IsVisible="{Binding HasDistance}" />
+                                </VerticalStackLayout>
+
+                                <ScrollView Orientation="Horizontal">
+                                    <HorizontalStackLayout BindableLayout.ItemsSource="{Binding InfoTags}"
+                                                           Spacing="8">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="{x:Null}">
+                                                <Border BackgroundColor="{AppThemeBinding Light=#F1F1F1, Dark=#2A2A2A}"
+                                                        Padding="10,5"
+                                                        StrokeThickness="0"
+                                                        StrokeShape="RoundRectangle 12">
+                                                    <Label Text="{Binding .}"
+                                                           FontSize="12"
+                                                           TextColor="{AppThemeBinding Light=#555555, Dark=#D0D0D0}" />
+                                                </Border>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </HorizontalStackLayout>
+                                </ScrollView>
+
+                            </VerticalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

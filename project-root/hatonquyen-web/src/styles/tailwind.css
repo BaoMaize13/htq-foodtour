@@ -1,0 +1,47 @@
+@import 'tailwindcss' source(none);
+@source '../**/*.{js,ts,jsx,tsx}';
+
+@import 'tw-animate-css';
+
+@theme {
+  --color-burgundy: #8B1538;
+  --color-burgundy-dark: #5C0A1F;
+  --color-burgundy-deep: #3A0915;
+  --color-burgundy-bg: #1a0a0f;
+  --color-gold: #FFD700;
+  --color-gold-dark: #D4AF37;
+  --color-gold-muted: #C49F2F;
+}
+
+@layer utilities {
+  .log-entry {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .pulse-gold {
+    animation: pulse-gold 2s infinite;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-gold {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 0 12px 4px rgba(255, 215, 0, 0.15);
+  }
+}

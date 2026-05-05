@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             x:Class="HTQSFR.Pages.SplashPage"
+             ios:Page.UseSafeArea="False"
+             Shell.NavBarIsVisible="False"
+             Shell.PresentationMode="ModalAnimated"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="White">
+
+	<Grid>
+		<Image Source="homepage.jpg"
+               Aspect="AspectFill"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill" />
+
+		<Grid Padding="18,0,18,28"
+              RowDefinitions="*,Auto">
+
+			<VerticalStackLayout Grid.Row="1"
+                                 HorizontalOptions="End"
+                                 VerticalOptions="End"
+                                 Spacing="14">
+
+				<VerticalStackLayout x:Name="LanguageSection"
+                     Grid.Row="1"
+                     Spacing="6"
+                     HorizontalOptions="End"
+                     VerticalOptions="End"
+                     Margin="0,0,0,12">
+
+					<Label x:Name="LanguageTitleLabel"
+						   Text="Choose language"
+						   TextColor="White"
+						   FontSize="15"
+						   FontAttributes="Bold"
+						   HorizontalTextAlignment="End"
+						   HorizontalOptions="End" />
+
+					<Border Stroke="White"
+							StrokeThickness="1.2"
+							BackgroundColor="#26FFFFFF"
+							StrokeShape="RoundRectangle 14"
+							WidthRequest="155"
+							HeightRequest="56"
+							HorizontalOptions="End"
+							Padding="0">
+
+						<Picker x:Name="LanguagePicker"
+								Title="Select language"
+								TitleColor="White"
+								TextColor="White"
+								BackgroundColor="Transparent"
+								HorizontalOptions="Fill"
+								VerticalOptions="Center"
+								HorizontalTextAlignment="Center"
+								VerticalTextAlignment="Center"
+								SelectedIndexChanged="OnLanguageChanged" />
+					</Border>
+				</VerticalStackLayout>
+
+				<Button x:Name="GetStartedButton"
+                        Text="Get Started"
+                        Clicked="OnGetStartedClicked"
+                        WidthRequest="155"
+                        HeightRequest="56"
+                        HorizontalOptions="End"
+                        VerticalOptions="End"
+                        CornerRadius="14"
+                        BackgroundColor="#26FFFFFF"
+                        BorderColor="White"
+                        BorderWidth="1.2"
+                        TextColor="White"
+                        FontSize="16" />
+			</VerticalStackLayout>
+		</Grid>
+	</Grid>
+</ContentPage>

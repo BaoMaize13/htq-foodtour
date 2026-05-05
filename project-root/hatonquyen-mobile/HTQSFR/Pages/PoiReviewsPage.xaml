@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Pages.PoiReviewsPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="{AppThemeBinding Light=#F6F6F6, Dark=#121212}">
+
+    <Grid RowDefinitions="Auto,*"
+          Padding="20,48,20,20"
+          RowSpacing="16">
+
+        <Grid Grid.Row="0"
+              ColumnDefinitions="Auto,*,Auto"
+              ColumnSpacing="12">
+
+            <Border WidthRequest="44"
+                    HeightRequest="44"
+                    BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                    StrokeThickness="0"
+                    VerticalOptions="Start">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="22" />
+                </Border.StrokeShape>
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnBackTapped" />
+                </Border.GestureRecognizers>
+                <Label Text="‹"
+                       FontSize="34"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center"
+                       TextColor="{AppThemeBinding Light=#222222, Dark=White}" />
+            </Border>
+
+            <VerticalStackLayout Grid.Column="1"
+                                 Spacing="2"
+                                 VerticalOptions="Center">
+                <Label Text="{Binding Title}"
+                       FontSize="24"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+                <Label Text="{Binding Subtitle}"
+                       FontSize="13"
+                       LineBreakMode="TailTruncation"
+                       TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}" />
+            </VerticalStackLayout>
+
+            <Button Grid.Column="2"
+                    Text="{Binding RefreshText}"
+                    Clicked="OnRefreshClicked"
+                    Padding="12,0"
+                    HeightRequest="42"
+                    CornerRadius="21"
+                    BackgroundColor="{AppThemeBinding Light=#111111, Dark=#FFFFFF}"
+                    TextColor="{AppThemeBinding Light=White, Dark=#111111}" />
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <CollectionView ItemsSource="{Binding Reviews}"
+                            SelectionMode="None">
+                <CollectionView.EmptyView>
+                    <VerticalStackLayout Padding="20"
+                                         Spacing="10"
+                                         HorizontalOptions="Center"
+                                         VerticalOptions="Center">
+                        <Label Text="{Binding EmptyTitle}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="18"
+                               FontAttributes="Bold"
+                               TextColor="{AppThemeBinding Light=#222222, Dark=White}" />
+                        <Label Text="{Binding EmptyMessage}"
+                               HorizontalTextAlignment="Center"
+                               FontSize="14"
+                               TextColor="{AppThemeBinding Light=#777777, Dark=#CFCFCF}" />
+                    </VerticalStackLayout>
+                </CollectionView.EmptyView>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Null}">
+                        <Border Margin="0,0,0,12"
+                                Padding="16"
+                                BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="18" />
+                            </Border.StrokeShape>
+
+                            <VerticalStackLayout Spacing="8">
+                                <Grid ColumnDefinitions="*,Auto"
+                                      ColumnSpacing="12">
+                                    <VerticalStackLayout Spacing="2">
+                                        <Label Text="{Binding UserName}"
+                                               FontSize="15"
+                                               FontAttributes="Bold"
+                                               TextColor="{AppThemeBinding Light=#222222, Dark=White}" />
+                                        <Label Text="{Binding CreatedAtText}"
+                                               FontSize="12"
+                                               TextColor="{AppThemeBinding Light=#999999, Dark=#AAAAAA}" />
+                                    </VerticalStackLayout>
+
+                                    <Border Grid.Column="1"
+                                            Padding="10,6"
+                                            BackgroundColor="{AppThemeBinding Light=#FFF7ED, Dark=#2A1A10}"
+                                            StrokeThickness="0">
+                                        <Border.StrokeShape>
+                                            <RoundRectangle CornerRadius="14" />
+                                        </Border.StrokeShape>
+                                        <Label Text="{Binding RatingText}"
+                                               FontSize="13"
+                                               FontAttributes="Bold"
+                                               TextColor="#F97316" />
+                                    </Border>
+                                </Grid>
+
+                                <Label Text="{Binding Content}"
+                                       FontSize="14"
+                                       LineHeight="1.35"
+                                       TextColor="{AppThemeBinding Light=#555555, Dark=#D4D4D4}" />
+                            </VerticalStackLayout>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Border IsVisible="{Binding IsLoading}"
+                    BackgroundColor="#99000000"
+                    StrokeThickness="0">
+                <VerticalStackLayout HorizontalOptions="Center"
+                                     VerticalOptions="Center"
+                                     Spacing="12">
+                    <ActivityIndicator IsRunning="{Binding IsLoading}"
+                                       Color="White" />
+                    <Label Text="{Binding LoadingText}"
+                           TextColor="White"
+                           FontAttributes="Bold" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

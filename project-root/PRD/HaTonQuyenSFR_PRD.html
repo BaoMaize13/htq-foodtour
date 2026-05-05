@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRD — Hà Tôn Quyền Street Food Review</title>
+<meta name="description" content="PRD single-page cho hệ thống Hà Tôn Quyền Street Food Review gồm Mobile App .NET MAUI, Backend Node.js/Express và MongoDB.">
+<style>
+:root{
+  --bg:#fff7ed;--paper:#fffdf8;--ink:#1c1917;--muted:#76685f;--line:#ead9c7;
+  --brand:#c2410c;--brand2:#0f766e;--brand3:#a16207;--soft:#ffedd5;--soft2:#ccfbf1;
+  --shadow:0 18px 55px rgba(124,45,18,.13);--radius:24px;--max:1180px;
+}
+*{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;color:var(--ink);background:radial-gradient(circle at 4% 0%,#fed7aa 0,transparent 28%),radial-gradient(circle at 96% 6%,#99f6e4 0,transparent 28%),linear-gradient(180deg,#fff7ed 0%,#fffbeb 45%,#fdf2f8 100%);line-height:1.65}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;background-image:linear-gradient(90deg,rgba(194,65,12,.08) 1px,transparent 1px),linear-gradient(rgba(194,65,12,.08) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(180deg,black,transparent 88%);z-index:0}
+a{color:var(--brand2)} code{font-family:"Cascadia Code",Consolas,monospace;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;border-radius:8px;padding:.12rem .34rem;font-size:.92em}
+.progress{position:fixed;top:0;left:0;height:4px;width:100%;transform:scaleX(0);transform-origin:left;background:linear-gradient(90deg,var(--brand),var(--brand2));z-index:50}
+.layout{position:relative;z-index:1;display:grid;grid-template-columns:284px minmax(0,1fr);gap:24px;max-width:calc(var(--max) + 340px);margin:0 auto;padding:18px}
+.sidebar{position:sticky;top:18px;height:calc(100vh - 36px);border:1px solid rgba(194,65,12,.18);background:rgba(255,253,248,.82);backdrop-filter:blur(18px);border-radius:28px;box-shadow:var(--shadow);padding:18px;overflow:auto}
+.brand{display:flex;gap:12px;align-items:center;padding:10px 8px 18px;border-bottom:1px solid var(--line);margin-bottom:12px} .brand-mark{width:48px;height:48px;border-radius:18px;background:linear-gradient(135deg,#fb923c,#14b8a6);display:grid;place-items:center;color:white;font-size:24px;box-shadow:0 10px 24px rgba(194,65,12,.25)} .brand strong{display:block;line-height:1.2} .brand span{display:block;color:var(--muted);font-size:.78rem;margin-top:4px}
+.nav a{display:flex;align-items:center;gap:10px;text-decoration:none;color:#4b3528;border-radius:14px;padding:10px 12px;margin:3px 0;font-size:.92rem;border:1px solid transparent} .nav a:hover,.nav a.active{background:#fff7ed;border-color:#fed7aa;color:#9a3412;font-weight:700}
+.content{min-width:0} .hero,.section{scroll-margin-top:24px} .hero-card,.panel{background:rgba(255,253,248,.88);border:1px solid rgba(194,65,12,.16);border-radius:32px;box-shadow:var(--shadow)} .hero-card{position:relative;overflow:hidden;padding:44px;min-height:520px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr);gap:24px;align-items:center} .hero-card:after{content:"";position:absolute;right:-140px;top:-120px;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,#fed7aa,transparent 70%);z-index:-1} .eyebrow{display:inline-flex;align-items:center;gap:8px;background:#ffedd5;border:1px solid #fed7aa;color:#9a3412;font-weight:800;letter-spacing:.08em;text-transform:uppercase;border-radius:999px;padding:8px 14px;font-size:.78rem} h1{font-size:clamp(2.3rem,5vw,5rem);line-height:.96;letter-spacing:-.06em;margin:18px 0;color:#431407} .lead{font-size:1.08rem;color:#5f4b3f;max-width:820px;margin:0 0 22px} .chips{display:flex;gap:10px;flex-wrap:wrap} .chip{display:inline-flex;align-items:center;gap:8px;border:1px solid #fed7aa;background:#fff7ed;border-radius:999px;padding:9px 13px;font-size:.86rem;color:#5f3018} .dot{width:9px;height:9px;border-radius:50%;background:currentColor;box-shadow:0 0 12px currentColor}
+.hero-aside{display:grid;gap:14px} .metric-card{background:linear-gradient(160deg,#431407,#7c2d12);color:white;border-radius:26px;padding:22px;box-shadow:0 18px 38px rgba(67,20,7,.2)} .metric-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px} .metric{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:12px} .metric b{display:block;font-size:1.7rem;line-height:1} .metric span{font-size:.78rem;color:#ffedd5}
+.section{margin-top:22px} .panel{padding:30px} .section-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;margin-bottom:20px} .kicker{text-transform:uppercase;color:var(--brand2);font-weight:900;font-size:.75rem;letter-spacing:.12em} h2{font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.08;letter-spacing:-.04em;margin:8px 0 6px;color:#431407} .desc{color:var(--muted);max-width:880px;margin:0} .tag{border:1px solid #99f6e4;background:#ccfbf1;color:#115e59;border-radius:999px;padding:9px 13px;font-weight:800;font-size:.78rem;white-space:nowrap}
+.grid-2,.grid-3,.grid-4{display:grid;gap:16px} .grid-2{grid-template-columns:repeat(2,minmax(0,1fr))} .grid-3{grid-template-columns:repeat(3,minmax(0,1fr))} .grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.card,.table-card,.diagram-card,.callout,.timeline{background:#fffefb;border:1px solid var(--line);border-radius:22px;box-shadow:0 10px 28px rgba(124,45,18,.08)} .card{padding:20px} .card h3,.diagram-card h3,.table-card h3{margin:0 0 8px;color:#431407;line-height:1.25} .card p,.card li,.diagram-card p,.table-card p,.callout p,.timeline p{color:var(--muted);font-size:.94rem} ul{padding-left:20px;margin:10px 0 0} li{margin:6px 0} .badge{display:inline-flex;border-radius:999px;padding:6px 10px;background:#ecfdf5;color:#0f766e;border:1px solid #99f6e4;font-size:.75rem;font-weight:800;margin-bottom:10px} .badge.warn{background:#fff7ed;color:#9a3412;border-color:#fed7aa} .badge.pink{background:#fdf2f8;color:#9d174d;border-color:#fbcfe8}
+.stat-row{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-top:18px} .stat{background:#fffefb;border:1px solid var(--line);border-radius:20px;padding:16px;text-align:center} .stat b{display:block;font-size:1.7rem;color:#9a3412;line-height:1} .stat span{font-size:.8rem;color:var(--muted)}
+.table-card{padding:18px;overflow:hidden} .table-scroll{overflow:auto;border:1px solid var(--line);border-radius:18px;margin-top:12px} table{width:100%;border-collapse:collapse;min-width:760px;background:white} th,td{text-align:left;padding:12px 13px;border-bottom:1px solid #f1dfce;vertical-align:top;font-size:.92rem} th{background:#fff7ed;color:#431407;position:sticky;top:0} tr:hover td{background:#fffaf5}
+.callout{padding:18px 20px;border-left:5px solid var(--brand2);background:linear-gradient(90deg,#f0fdfa,#fffefb)} .callout.warn{border-left-color:var(--brand);background:linear-gradient(90deg,#fff7ed,#fffefb)}
+.timeline{padding:22px;position:relative} .timeline-item{border-left:3px solid #fdba74;padding:0 0 18px 20px;position:relative} .timeline-item:before{content:"";position:absolute;left:-8px;top:5px;width:13px;height:13px;border-radius:999px;background:var(--brand);border:3px solid #ffedd5} .timeline-item:last-child{padding-bottom:0}
+.diagram-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px} .diagram-card{padding:16px} .diagram-topline{display:flex;justify-content:space-between;gap:10px;align-items:center;color:var(--muted);font-size:.75rem;text-transform:uppercase;font-weight:900;letter-spacing:.08em;margin-bottom:10px} .open-btn{border:1px solid #fed7aa;background:#fff7ed;color:#9a3412;border-radius:999px;padding:7px 10px;cursor:pointer;font-weight:800} .diagram-frame{border:1px solid #ead9c7;background:#fff;border-radius:18px;min-height:230px;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:10px;cursor:zoom-in} .diagram-frame img{max-width:100%;height:auto;max-height:420px;object-fit:contain;display:block}
+pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius:20px;padding:18px;border:1px solid #7c2d12;line-height:1.45;font-size:.84rem} .manifest a{font-weight:800}
+.footer{padding:24px 0 12px;color:var(--muted);text-align:center}
+.modal{position:fixed;inset:0;background:rgba(28,25,23,.76);backdrop-filter:blur(8px);display:none;z-index:100;align-items:center;justify-content:center;padding:18px} .modal.open{display:flex} .modal-panel{width:min(96vw,1500px);height:min(92vh,980px);background:#fffefb;border-radius:26px;border:1px solid var(--line);box-shadow:0 30px 100px rgba(0,0,0,.4);display:grid;grid-template-rows:auto 1fr;overflow:hidden} .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line);background:#fff7ed} .modal-title{font-weight:900;color:#431407} .modal-actions{display:flex;gap:8px;flex-wrap:wrap} .modal-actions button{border:1px solid #fed7aa;background:white;border-radius:999px;padding:8px 12px;cursor:pointer;font-weight:800;color:#9a3412} .modal-body{overflow:auto;background:#f8fafc;display:grid;place-items:center;padding:22px} .modal-body img{max-width:none;width:auto;height:auto;background:white;border-radius:16px;box-shadow:0 20px 55px rgba(15,23,42,.16);transform-origin:center;transition:.12s}
+.mobile-topbar{display:none;position:sticky;top:0;z-index:40;background:rgba(255,253,248,.88);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:10px 14px;justify-content:space-between;align-items:center} .mobile-topbar button{border:1px solid #fed7aa;background:#fff7ed;border-radius:12px;padding:8px 12px;color:#9a3412;font-weight:900}
+@media (max-width:1180px){.layout{grid-template-columns:1fr}.sidebar{display:none}.sidebar.open{display:block;position:fixed;z-index:80;left:12px;right:12px;top:62px;height:calc(100vh - 80px)}.mobile-topbar{display:flex}.hero-card{grid-template-columns:1fr}.grid-3,.grid-4,.grid-2{grid-template-columns:1fr}.stat-row{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:580px){.layout{padding:12px}.hero-card,.panel{padding:22px;border-radius:24px}.stat-row{grid-template-columns:1fr} h1{font-size:2.4rem}}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="mobile-topbar"><strong>HTQSFR PRD</strong><button id="menuBtn">Menu</button></div>
+<div class="layout">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="brand-mark">🥢</div><div><strong>Hà Tôn Quyền<br>Street Food Review</strong><span>PRD • Web Admin + Mobile + Backend</span></div></div>
+  <nav class="nav" id="nav">
+    <a href="#overview">01 Tổng quan</a><a href="#goals">02 Mục tiêu</a><a href="#tech">03 Công nghệ</a><a href="#admin">04 Web Admin</a><a href="#mobile">05 Mobile App</a><a href="#backend">06 Backend</a><a href="#database">07 Database</a><a href="#api">08 API</a><a href="#flows">09 Luồng xử lý</a><a href="#rules">10 Quy tắc</a><a href="#diagrams">11 Sơ đồ</a>
+  </nav>
+</aside>
+<main class="content">
+<header class="hero" id="top">
+  <div class="hero-card">
+    <div>
+      <span class="eyebrow">Product Requirements Document • V1.0</span>
+      <h1>PRD hệ thống Hà Tôn Quyền Street Food Review</h1>
+      <p class="lead">Tài liệu mô tả sản phẩm theo hướng đồ án: app mobile .NET MAUI hỗ trợ khám phá phố ẩm thực Hà Tôn Quyền bằng bản đồ, bộ lọc, gợi ý quán gần, audio/TTS, lưu quán yêu thích; backend Node.js/Express quản lý dữ liệu, xác thực, POI, menu, review, thuyết minh và MongoDB.</p>
+      <div class="chips"><span class="chip"><span class="dot" style="color:#c2410c"></span>.NET MAUI + C# + XAML</span><span class="chip"><span class="dot" style="color:#0f766e"></span>Node.js / Express</span><span class="chip"><span class="dot" style="color:#a16207"></span>MongoDB / Mongoose</span><span class="chip"><span class="dot" style="color:#7c3aed"></span>Leaflet + MapLibre + PMTiles</span><span class="chip"><span class="dot" style="color:#db2777"></span>10 ngôn ngữ UI</span></div>
+    </div>
+    <aside class="hero-aside">
+      <div class="metric-card"><h3 style="margin:0 0 8px">Phạm vi bản PRD</h3><p style="margin:0;color:#ffedd5">Tập trung trình bày mobile app nhưng vẫn có phần backend/database để chứng minh app có dữ liệu thật và hợp đồng API rõ ràng.</p><div class="metric-grid"><div class="metric"><b>4</b><span>tab chính</span></div><div class="metric"><b>10</b><span>ngôn ngữ</span></div><div class="metric"><b>8+</b><span>collection lõi</span></div><div class="metric"><b>30</b><span>ảnh/sơ đồ, gồm Web Admin</span></div></div></div>
+    </aside>
+  </div>
+</header>
+
+<section class="section" id="overview"><div class="panel">
+  <div class="section-head"><div><span class="kicker">01 • Product overview</span><h2>Tổng quan sản phẩm</h2><p class="desc">HTQSFR hướng tới khách du lịch/người dùng muốn khám phá các quán ăn nổi bật quanh phố Hà Tôn Quyền. Mobile app là điểm chạm chính: tìm quán, xem map, lọc theo vị trí/gần đây/giá/loại món, xem chi tiết, nghe audio giới thiệu, lưu quán và đổi ngôn ngữ.</p></div><span class="tag">Mobile-first PRD</span></div>
+  <div class="stat-row"><div class="stat"><b>Mobile</b><span>.NET MAUI app</span></div><div class="stat"><b>API</b><span>Express REST</span></div><div class="stat"><b>DB</b><span>MongoDB</span></div><div class="stat"><b>Map</b><span>Leaflet / MapLibre</span></div><div class="stat"><b>Audio</b><span>audio URL + TTS fallback</span></div><div class="stat"><b>Offline</b><span>POI/map pack cache</span></div></div>
+  <div class="grid-2" style="margin-top:18px"><article class="card"><h3>Bài toán cần giải quyết</h3><ul><li>Người dùng cần xem nhanh quán ăn quanh Hà Tôn Quyền theo bản đồ và vị trí thực tế.</li><li>App cần có gợi ý “gần đây” thay vì chỉ danh sách tĩnh.</li><li>Nội dung quán cần đồng bộ từ backend, không hard-code trong app.</li><li>Audio/TTS giúp trải nghiệm giống smart tour guide cho phố ẩm thực.</li></ul></article><article class="card"><h3>Giá trị MVP</h3><ul><li>Mobile có đủ Splash, Auth, Home, Search, FullMap, POI Detail, Saved và Profile.</li><li>Backend có các module: users, places, menu, reviews, narrations, maps, analytics, upload, admin.</li><li>MongoDB schema rõ ràng, dễ trình bày database design.</li><li>PRD có sequence/activity diagrams và gallery hình để bảo vệ đồ án trực quan.</li></ul></article></div>
+</div></section>
+
+<section class="section" id="goals"><div class="panel">
+  <div class="section-head"><div><span class="kicker">02 • Goals & scope</span><h2>Mục tiêu, người dùng và phạm vi</h2><p class="desc">Mục tiêu của tài liệu là mô tả đúng chức năng đang có trong source và các phần planned nếu chưa hoàn thiện 100%.</p></div><span class="tag">Scope rõ ràng</span></div>
+  <div class="grid-3"><article class="card"><h3>Mục tiêu nghiệp vụ</h3><ul><li>Quảng bá phố ẩm thực Hà Tôn Quyền bằng trải nghiệm mobile.</li><li>Hỗ trợ tìm quán theo nhu cầu: vị trí, gần đây, giá và loại món.</li><li>Tăng trải nghiệm khám phá bằng audio giới thiệu quán.</li><li>Cho phép backend/web quản trị dữ liệu POI, menu, review, audio.</li></ul></article><article class="card"><h3>Nhóm người dùng</h3><ul><li><strong>Khách/Guest:</strong> xem quán, map, audio cơ bản.</li><li><strong>User đã đăng nhập:</strong> lưu quán, quản lý profile, đồng bộ ngôn ngữ.</li><li><strong>Admin/Owner:</strong> quản trị POI, menu, narration, review ở backend/web.</li></ul></article><article class="card"><h3>Out of scope hiện tại</h3><ul><li>Không có thanh toán/đặt bàn.</li><li>Không có giao hàng hay quản lý đơn.</li><li>Không có mạng xã hội/feed phức tạp.</li><li>Geofence nền liên tục cần ghi rõ nếu chưa chạy như service background production.</li></ul></article></div>
+  <div class="callout warn" style="margin-top:18px"><strong>Ghi chú trung thực:</strong> source mobile hiện có Nearby + queue audio top quán gần và offline map pack initialization. Với geofence tự động nền liên tục, cần kiểm tra runtime cuối cùng trước khi ghi là đã hoàn tất production.</div>
+</div></section>
+
+<section class="section" id="tech"><div class="panel">
+  <div class="section-head"><div><span class="kicker">03 • Technology stack</span><h2>Công nghệ sử dụng</h2><p class="desc">Bản gốc của Vĩnh Khánh dùng ASP.NET Core MVC và SQL Server; bản Hà Tôn Quyền đã được đổi đúng theo source hiện tại: .NET MAUI mobile, Node.js/Express backend và MongoDB.</p></div><span class="tag">Không còn SQL Server PRD cũ</span></div>
+  <div class="grid-4"><article class="card"><span class="badge">Mobile</span><h3>.NET MAUI</h3><p>C#, XAML, AppShell tabs, CommunityToolkit.Maui/Mvvm, Preferences/SecureStorage, WebView map.</p></article><article class="card"><span class="badge">Map</span><h3>Leaflet + MapLibre</h3><p>SearchPage dùng Leaflet WebView; FullMapPage dùng MapLibre GL + PMTiles/offline map pack.</p></article><article class="card"><span class="badge">Backend</span><h3>Node.js / Express</h3><p>REST API, middleware JWT, requireRole, validation, modular routes/services/models.</p></article><article class="card"><span class="badge">Database</span><h3>MongoDB / Mongoose</h3><p>Collections cho user, role, POI, category, menu, review, narration, audio asset, favorite, live session.</p></article></div>
+</div></section>
+
+
+<section class="section" id="admin"><div class="panel">
+  <div class="section-head"><div><span class="kicker">04 • Web Admin</span><h2>Khối Web Admin / Dashboard quản trị</h2><p class="desc">Web Admin là giao diện quản trị dành cho admin và owner. Phần này chịu trách nhiệm quản lý dữ liệu mà mobile app tiêu thụ: địa điểm/POI, menu món ăn, thuyết minh, audio/TTS, đánh giá, người dùng, phân quyền, duyệt chủ cửa hàng và nhật ký hoạt động.</p></div><span class="tag">Admin + Owner CMS</span></div>
+  <div class="grid-3">
+    <article class="card"><span class="badge">Admin</span><h3>Dashboard tổng quan</h3><ul><li>Hiển thị thống kê tổng quan hệ thống: người dùng, địa điểm, chủ cửa hàng, review và trạng thái dữ liệu.</li><li>Có khu vực thao tác nhanh để đi tới các module quản trị chính.</li><li>Hỗ trợ theo dõi hoạt động hệ thống qua dashboard và audit log.</li></ul></article>
+    <article class="card"><span class="badge">POI</span><h3>Quản lý địa điểm</h3><ul><li>Tạo/sửa/xóa địa điểm ẩm thực Hà Tôn Quyền.</li><li>Quản lý tên, mô tả, địa chỉ, tọa độ <code>lat/lng</code>, danh mục, hình ảnh, trạng thái hiển thị.</li><li>Dữ liệu POI sau khi duyệt/active sẽ được mobile đọc để hiển thị trên SearchPage, FullMapPage và PoiDetailPage.</li></ul></article>
+    <article class="card"><span class="badge">Menu</span><h3>Quản lý menu</h3><ul><li>Quản lý món ăn theo từng POI/quán.</li><li>Các field chính: tên món, giá, mô tả, hình ảnh, trạng thái còn bán/ẩn.</li><li>Mobile dùng dữ liệu này để hiển thị menu ở trang chi tiết quán.</li></ul></article>
+    <article class="card"><span class="badge">Audio</span><h3>Quản lý thuyết minh &amp; TTS</h3><ul><li>Viết/dùng script thuyết minh theo ngôn ngữ.</li><li>Cho phép duyệt nội dung thuyết minh trước khi xuất bản.</li><li>Có module Dev TTS Test để kiểm tra audio/TTS trước khi đưa vào app.</li></ul></article>
+    <article class="card"><span class="badge">Moderation</span><h3>Quản lý đánh giá</h3><ul><li>Xem danh sách review theo người dùng và địa điểm.</li><li>Duyệt/ẩn/xóa đánh giá không phù hợp.</li><li>Giúp điểm rating và nội dung review trên mobile đáng tin hơn.</li></ul></article>
+    <article class="card"><span class="badge">AuthZ</span><h3>Người dùng &amp; phân quyền</h3><ul><li>Quản lý user/admin/owner.</li><li>Duyệt đăng ký chủ cửa hàng trước khi cho phép quản lý nội dung.</li><li>Phân quyền bằng JWT middleware và <code>requireRole</code> ở backend.</li></ul></article>
+  </div>
+  <div class="table-card" style="margin-top:18px"><h3>Module Web Admin và dữ liệu liên quan</h3><div class="table-scroll"><table><thead><tr><th>Module</th><th>Chức năng chính</th><th>Backend/API hoặc collection liên quan</th><th>Ảnh trong PRD</th></tr></thead><tbody>
+    <tr><td>Dashboard</td><td>Tổng quan hệ thống, thao tác nhanh, thống kê người dùng.</td><td><code>/api/admin/dashboard/summary</code>, analytics, live sessions.</td><td>dashboard-tong-quan-he-thong.png, dashboard-thao-t-nhanh.png</td></tr>
+    <tr><td>POI / Địa điểm</td><td>CRUD địa điểm, tọa độ, trạng thái hiển thị, category.</td><td><code>/api/places</code>, <code>pois</code>, <code>categories</code>.</td><td>quan-ly-d-diem.png</td></tr>
+    <tr><td>Menu</td><td>Quản lý món ăn theo quán, giá, trạng thái.</td><td><code>/api/admin/menus</code>, <code>menuitems</code>.</td><td>quan-ly-menu.png</td></tr>
+    <tr><td>Narration/Audio</td><td>Quản lý script thuyết minh, duyệt nội dung, TTS/audio asset.</td><td><code>/api/admin/narrations</code>, <code>/api/narrations</code>, <code>narrations</code>, <code>audioassets</code>.</td><td>quan-ly-thuyet-minh.png, dev-tts-test.png</td></tr>
+    <tr><td>Review</td><td>Kiểm duyệt đánh giá, ẩn/xóa review sai phạm.</td><td><code>/api/admin/reviews</code>, <code>reviews</code>.</td><td>quan-ly-danh-gia.png</td></tr>
+    <tr><td>User/Owner</td><td>Quản lý người dùng, phân quyền, duyệt chủ cửa hàng.</td><td><code>/api/admin/users</code>, <code>/api/users/admin/owners/pending</code>, <code>users</code>, <code>roles</code>, <code>ownerprofiles</code>.</td><td>nguoi-dung-phan-quyen.png, duyet-chu-c-hang.png</td></tr>
+    <tr><td>Audit log</td><td>Theo dõi hành động quản trị và thay đổi dữ liệu.</td><td><code>/api/admin/audit-logs</code>, <code>auditlogs</code>.</td><td>nhat-ky-hoat-dong.png</td></tr>
+  </tbody></table></div></div>
+  <div class="callout" style="margin-top:18px"><strong>Vai trò của Web Admin trong hệ thống:</strong> Web Admin không phải phần user mobile trực tiếp dùng, nhưng là nơi tạo và kiểm soát toàn bộ dữ liệu mà mobile hiển thị. Vì vậy PRD cần có riêng phần Web Admin để chứng minh hệ thống không chỉ là app tĩnh.</div>
+  <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-tong-quan-he-thong.png" data-title="Dashboard — Tổng quan hệ thống">Phóng to</button></div><h3>Dashboard — Tổng quan hệ thống</h3><p>Màn hình tổng quan số liệu và trạng thái hệ thống.</p><div class="diagram-frame"><img src="diagram/dashboard-tong-quan-he-thong.png" alt="Dashboard tổng quan hệ thống" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-thao-t-nhanh.png" data-title="Dashboard — Thao tác nhanh">Phóng to</button></div><h3>Dashboard — Thao tác nhanh</h3><p>Các shortcut quản trị để chuyển nhanh tới module quan trọng.</p><div class="diagram-frame"><img src="diagram/dashboard-thao-t-nhanh.png" alt="Dashboard thao tác nhanh" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-thong-ke-nguoi-dung.png" data-title="Dashboard — Thống kê người dùng">Phóng to</button></div><h3>Dashboard — Thống kê người dùng</h3><p>Thống kê người dùng/phân quyền theo dữ liệu hệ thống.</p><div class="diagram-frame"><img src="diagram/dashboard-thong-ke-nguoi-dung.png" alt="Dashboard thống kê người dùng" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-d-diem.png" data-title="Quản lý địa điểm">Phóng to</button></div><h3>Quản lý địa điểm</h3><p>Quản trị danh sách POI/quán ăn hiển thị trên mobile.</p><div class="diagram-frame"><img src="diagram/quan-ly-d-diem.png" alt="Quản lý địa điểm" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-menu.png" data-title="Quản lý Menu">Phóng to</button></div><h3>Quản lý Menu</h3><p>Quản lý món ăn thuộc từng quán/POI.</p><div class="diagram-frame"><img src="diagram/quan-ly-menu.png" alt="Quản lý menu" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-thuyet-minh.png" data-title="Quản lý thuyết minh">Phóng to</button></div><h3>Quản lý thuyết minh</h3><p>Quản lý nội dung audio/narration theo địa điểm và ngôn ngữ.</p><div class="diagram-frame"><img src="diagram/quan-ly-thuyet-minh.png" alt="Quản lý thuyết minh" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div><h3>Dev TTS Test</h3><p>Kiểm thử tạo/preview giọng đọc TTS trước khi dùng trong app.</p><div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt nội dung thuyết minh">Phóng to</button></div><h3>Duyệt nội dung thuyết minh</h3><p>Kiểm duyệt script/nội dung trước khi xuất bản.</p><div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt nội dung thuyết minh" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-danh-gia.png" data-title="Quản lý đánh giá">Phóng to</button></div><h3>Quản lý đánh giá</h3><p>Kiểm duyệt review/rating của người dùng.</p><div class="diagram-frame"><img src="diagram/quan-ly-danh-gia.png" alt="Quản lý đánh giá" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div><h3>Người dùng &amp; phân quyền</h3><p>Quản lý role, trạng thái tài khoản, phân quyền admin/owner/user.</p><div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng và phân quyền" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt chủ cửa hàng">Phóng to</button></div><h3>Duyệt chủ cửa hàng</h3><p>Duyệt hồ sơ owner trước khi cho phép quản lý nội dung.</p><div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt chủ cửa hàng" loading="lazy"></div></article>
+    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/nhat-ky-hoat-dong.png" data-title="Nhật ký hoạt động">Phóng to</button></div><h3>Nhật ký hoạt động</h3><p>Ghi nhận hành động quản trị quan trọng để truy vết.</p><div class="diagram-frame"><img src="diagram/nhat-ky-hoat-dong.png" alt="Nhật ký hoạt động" loading="lazy"></div></article>
+  </div>
+</div></section>
+
+<section class="section" id="mobile"><div class="panel">
+  <div class="section-head"><div><span class="kicker">05 • Mobile App</span><h2>Khối Mobile App .NET MAUI</h2><p class="desc">Mobile là phần người dùng nhìn thấy trực tiếp. Các page chính gồm Splash, Login, Register, Main/Home, Search, FullMap, PoiDetail, Saved và Profile.</p></div><span class="tag">App-mobile focus</span></div>
+  <div class="grid-3"><article class="card"><span class="badge">Implemented</span><h3>AppShell + Routing</h3><ul><li>Đăng ký route LoginPage, RegisterPage, MainPage, PoiDetailPage, FullMapPage.</li><li>Tabs: Home, Search, Saved, Profile.</li><li>ApplyLanguage cập nhật title tab theo AppText.</li></ul></article><article class="card"><span class="badge">Implemented</span><h3>Search + Map</h3><ul><li>Load POI từ PoiService với <code>pois?lang=...</code>.</li><li>Render map bằng WebView + Leaflet.</li><li>Tap marker/card để mở PoiDetail hoặc FullMap.</li></ul></article><article class="card"><span class="badge">Implemented</span><h3>Nearby + Audio Queue</h3><ul><li>GPS hoặc chọn điểm thủ công.</li><li>Tính khoảng cách tới POI.</li><li>Queue audio qua PoiAudioPlaybackQueueService.</li></ul></article><article class="card"><span class="badge">Implemented</span><h3>FullMap</h3><ul><li>MapLibre GL full screen.</li><li>Cloud / Offline / Hybrid mode.</li><li>Pick mode trả tọa độ cho Nearby.</li></ul></article><article class="card"><span class="badge warn">Partial/Depends API</span><h3>Saved/Favorite</h3><ul><li>App gọi các endpoint favorite nếu có token.</li><li>Có fallback theo local/cache tùy page model.</li><li>Guest mode cần giới hạn hành động yêu cầu login.</li></ul></article><article class="card"><span class="badge">Implemented</span><h3>Language + Dark Mode</h3><ul><li>10 file JSON: vi, en, ko, ja, zh-Hans, zh-Hant, es, de, fr, ru.</li><li>Dark mode đọc từ Preferences <code>IsDarkMode</code>.</li><li>Đồng bộ preferredLanguage với backend nếu không phải guest.</li></ul></article></div>
+  <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/01_app_startup_session.svg" data-title="01. Sequence — App Startup &amp; Session">Phóng to</button></div>
+      <h3>01. Sequence — App Startup &amp; Session</h3>
+      <p>Mở app, load AppShell, đồng bộ ngôn ngữ, kiểm tra session và chuẩn bị offline map pack.</p>
+      <div class="diagram-frame"><img src="diagram/01_app_startup_session.svg" alt="01. Sequence — App Startup &amp; Session" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/02_login_register_guest.svg" data-title="02. Sequence — Login / Register / Guest">Phóng to</button></div>
+      <h3>02. Sequence — Login / Register / Guest</h3>
+      <p>Luồng đăng nhập backend, đăng ký và guest mode trước khi vào main tabs.</p>
+      <div class="diagram-frame"><img src="diagram/02_login_register_guest.svg" alt="02. Sequence — Login / Register / Guest" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/03_search_load_map.svg" data-title="03. Sequence — SearchPage Load POI + Map">Phóng to</button></div>
+      <h3>03. Sequence — SearchPage Load POI + Map</h3>
+      <p>SearchPageModel gọi PoiService, lấy POI public theo ngôn ngữ và render marker lên map.</p>
+      <div class="diagram-frame"><img src="diagram/03_search_load_map.svg" alt="03. Sequence — SearchPage Load POI + Map" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/04_search_filter_activity.svg" data-title="04. Activity — Search Filter">Phóng to</button></div>
+      <h3>04. Activity — Search Filter</h3>
+      <p>Người dùng chọn Location / Nearby / Price / Type, app lọc danh sách POI và cập nhật map.</p>
+      <div class="diagram-frame"><img src="diagram/04_search_filter_activity.svg" alt="04. Activity — Search Filter" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/05_nearby_pick_audio_queue.svg" data-title="05. Sequence — Nearby GPS / Pick Location / Audio Queue">Phóng to</button></div>
+      <h3>05. Sequence — Nearby GPS / Pick Location / Audio Queue</h3>
+      <p>GPS hoặc chọn điểm thủ công, tính khoảng cách, lấy quán gần nhất và đưa vào hàng đợi audio.</p>
+      <div class="diagram-frame"><img src="diagram/05_nearby_pick_audio_queue.svg" alt="05. Sequence — Nearby GPS / Pick Location / Audio Queue" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/06_nearby_recommendation.svg" data-title="06. Activity — Nearby Recommendation">Phóng to</button></div>
+      <h3>06. Activity — Nearby Recommendation</h3>
+      <p>Logic xin quyền vị trí, fallback chọn điểm, sort theo khoảng cách và tạo danh sách đề xuất.</p>
+      <div class="diagram-frame"><img src="diagram/06_nearby_recommendation.svg" alt="06. Activity — Nearby Recommendation" loading="lazy"></div>
+    </article></div>
+</div></section>
+
+<section class="section" id="backend"><div class="panel">
+  <div class="section-head"><div><span class="kicker">06 • Backend</span><h2>Backend Node.js/Express</h2><p class="desc">Backend Node.js/Express là lớp API và nghiệp vụ đứng sau Mobile App và Web Admin. Backend xác thực JWT, kiểm role, đọc/ghi MongoDB, cung cấp dữ liệu POI/menu/review/audio và các API quản trị.</p></div><span class="tag">Express modules</span></div>
+  <div class="grid-3"><article class="card"><h3>Users/Auth</h3><ul><li><code>POST /api/users/login</code></li><li><code>POST /api/users/register-owner</code></li><li><code>PUT /api/users/me</code></li><li>JWT + role middleware.</li></ul></article><article class="card"><h3>Places/POI</h3><ul><li>Public POI API cho mobile.</li><li>Admin/owner CRUD POI.</li><li>Category, geofenceRadius, audioPriority, isVisible/status.</li></ul></article><article class="card"><h3>Menu/Review/Favorite</h3><ul><li>Menu items theo POI.</li><li>Review rating 1–5.</li><li>Favorite user ↔ POI unique.</li></ul></article><article class="card"><h3>Narration/Audio</h3><ul><li>Narration script theo ngôn ngữ.</li><li>AudioAsset uploaded/TTS.</li><li>Content approval và audio batch jobs.</li></ul></article><article class="card"><h3>Maps</h3><ul><li>Offline manifest.</li><li>Pack files, style assets, fonts.</li><li>Phục vụ FullMap offline/hybrid.</li></ul></article><article class="card"><h3>Analytics/Admin</h3><ul><li>Live session/presence.</li><li>Dashboard summary.</li><li>Audit logs, moderation.</li></ul></article></div>
+  <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/chu-c-hang-hoat-dong.png" data-title="Chủ c𞻚 hàng hoạt động">Phóng to</button></div>
+      <h3>Chủ c𞻚 hàng hoạt động</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/chu-c-hang-hoat-dong.png" alt="Chủ c𞻚 hàng hoạt động" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div>
+      <h3>Dev TTS Test</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt Chủ C𞻚 Hàng">Phóng to</button></div>
+      <h3>Duyệt Chủ C𞻚 Hàng</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt Chủ C𞻚 Hàng" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt Nội Dung Thuyết Minh">Phóng to</button></div>
+      <h3>Duyệt Nội Dung Thuyết Minh</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt Nội Dung Thuyết Minh" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/login.png" data-title="Login">Phóng to</button></div>
+      <h3>Login</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/login.png" alt="Login" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div>
+      <h3>Người dùng &amp; Phân quyền</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng &amp; Phân quyền" loading="lazy"></div>
+    </article></div>
+</div></section>
+
+<section class="section" id="database"><div class="panel">
+  <div class="section-head"><div><span class="kicker">07 • Data layer</span><h2>Database design và mô hình dữ liệu</h2><p class="desc">Vì backend dùng MongoDB nên trong PRD gọi là collection. Tuy nhiên vẫn trình bày dạng bảng để dễ bảo vệ.</p></div><span class="tag">MongoDB collections</span></div>
+  <div class="grid-2"><div class="table-card"><h3>Collections lõi</h3><div class="table-scroll"><table><thead><tr><th>Collection</th><th>Mục đích</th><th>Field quan trọng</th></tr></thead><tbody><tr><td><code>users</code></td><td>Tài khoản người dùng/admin/owner.</td><td>fullName, email, passwordHash, role, roleCode, preferredLanguage, status.</td></tr><tr><td><code>roles</code></td><td>Định nghĩa quyền.</td><td>code, name, permissions.</td></tr><tr><td><code>categories</code></td><td>Danh mục quán/món.</td><td>name, slug, description.</td></tr><tr><td><code>pois</code></td><td>Địa điểm/quán ăn trên map.</td><td>name, translations, address, lat, lng, geofenceRadius, category, status.</td></tr><tr><td><code>menuitems</code></td><td>Món ăn của từng quán.</td><td>poiId, name, price, imageUrl, category, status.</td></tr><tr><td><code>reviews</code></td><td>Đánh giá người dùng.</td><td>poiId, userId, rating, content, status.</td></tr><tr><td><code>userfavorites</code></td><td>Quán đã lưu.</td><td>userId, poiId, unique index.</td></tr><tr><td><code>narrations</code></td><td>Kịch bản thuyết minh.</td><td>poi, language, title, script, status, submittedBy/reviewedBy.</td></tr><tr><td><code>audioassets</code></td><td>File audio/tts.</td><td>poi, narration, language, audioUrl, sourceType, duration, status.</td></tr><tr><td><code>livesessions</code></td><td>Phiên online của app.</td><td>installationId, appSessionId, userId, language, lastSeenAt.</td></tr></tbody></table></div></div>
+  <div class="table-card"><h3>Mobile local storage/cache</h3><div class="table-scroll"><table><thead><tr><th>Key/Data</th><th>Nơi lưu</th><th>Mục đích</th></tr></thead><tbody><tr><td><code>IsDarkMode</code></td><td>Preferences</td><td>Áp giao diện sáng/tối khi mở app.</td></tr><tr><td><code>selectedLanguage</code></td><td>Preferences/AppText</td><td>Lưu ngôn ngữ đang chọn.</td></tr><tr><td><code>accessToken</code></td><td>AuthSessionService</td><td>Gọi API yêu cầu xác thực.</td></tr><tr><td><code>cached POI</code></td><td>PoiCacheService/PoiDetailCacheService</td><td>Dữ liệu POI khi mạng lỗi hoặc cần load nhanh.</td></tr><tr><td><code>offline-map-packs</code></td><td>FileSystem.AppDataDirectory</td><td>Lưu pack bản đồ offline đã tải và kiểm SHA-256.</td></tr></tbody></table></div></div></div>
+  <div class="callout" style="margin-top:18px"><strong>Đã đổi theo yêu cầu:</strong> phần Database không nhúng Mermaid code nữa. Thay vào đó, PRD hiển thị trực tiếp sơ đồ <strong>Database Data Flow</strong> dạng ảnh SVG để nhìn giống tài liệu trình bày hơn.</div>
+  <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Database Data Flow</span><button class="open-btn" data-src="diagram/database-data-flow.svg" data-title="Database Data Flow — Web Admin / Mobile / Backend / MongoDB">Phóng to</button></div>
+      <h3>Database Data Flow</h3>
+      <p>Luồng dữ liệu từ Web Admin và Mobile App qua Backend API tới các MongoDB collections.</p>
+      <div class="diagram-frame"><img src="diagram/database-data-flow.svg" alt="Database Data Flow" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile API Data Flow</span><button class="open-btn" data-src="diagram/14_mobile_api_data_flow.svg" data-title="Mobile API / Data Integration Flow">Phóng to</button></div>
+      <h3>Mobile API / Data Integration</h3>
+      <p>Sequence app mobile gọi AuthService, PoiService, UserProfileService và nhận dữ liệu từ backend.</p>
+      <div class="diagram-frame"><img src="diagram/14_mobile_api_data_flow.svg" alt="Mobile API Data Flow" loading="lazy"></div>
+    </article>
+  </div>
+  <div class="table-card" style="margin-top:18px"><h3>Mapping dữ liệu Database → Mobile Screen</h3><div class="table-scroll"><table><thead><tr><th>Collection</th><th>Backend API</th><th>Mobile sử dụng ở đâu?</th><th>Vai trò trong PRD</th></tr></thead><tbody>
+    <tr><td><code>pois</code></td><td><code>GET /api/pois</code>, <code>GET /api/pois/:id</code></td><td>HomePage, SearchPage, FullMapPage, PoiDetailPage</td><td>Dữ liệu lõi để hiển thị quán ăn trên bản đồ.</td></tr>
+    <tr><td><code>categories</code></td><td><code>GET /api/categories</code> hoặc embedded trong POI</td><td>Filter Type, Home categories, POI Detail</td><td>Phân nhóm quán/món để lọc và trình bày.</td></tr>
+    <tr><td><code>menuitems</code></td><td><code>GET /api/pois/:id/menu</code></td><td>PoiDetailPage</td><td>Hiển thị món ăn, giá, trạng thái còn bán.</td></tr>
+    <tr><td><code>reviews</code></td><td><code>GET/POST /api/pois/:id/reviews</code></td><td>PoiDetailPage, Review section</td><td>Rating/comment của người dùng.</td></tr>
+    <tr><td><code>narrations</code>, <code>audioassets</code></td><td><code>GET /api/pois/:id/audio</code></td><td>Nearby Audio Queue, PoiDetail Play Audio</td><td>Phát audio/TTS giới thiệu quán.</td></tr>
+    <tr><td><code>userfavorites</code></td><td><code>GET /api/pois/favorites</code>, <code>POST/DELETE /api/pois/:id/favorite</code></td><td>SavedPage, PoiDetail favorite button</td><td>Lưu/bỏ lưu quán yêu thích.</td></tr>
+    <tr><td><code>users</code>, <code>roles</code></td><td><code>POST /api/users/login</code>, <code>PUT /api/users/me</code></td><td>LoginPage, ProfilePage, AppShell session</td><td>Xác thực và cá nhân hóa app.</td></tr>
+  </tbody></table></div></div>
+</div></section>
+
+<section class="section" id="api"><div class="panel">
+  <div class="section-head"><div><span class="kicker">08 • API surface</span><h2>Hợp đồng API cho mobile</h2><p class="desc">Các endpoint dưới đây là nhóm mobile cần dùng trực tiếp hoặc gián tiếp qua service.</p></div><span class="tag">REST JSON</span></div>
+  <div class="table-card"><h3>Endpoint chính</h3><div class="table-scroll"><table><thead><tr><th>Method</th><th>Endpoint</th><th>Mobile dùng để</th><th>Ghi chú</th></tr></thead><tbody><tr><td>POST</td><td><code>/api/users/login</code></td><td>Đăng nhập, nhận accessToken + user.</td><td>AuthService đang trỏ tới <code>users/login</code>.</td></tr><tr><td>PUT</td><td><code>/api/users/me</code></td><td>Cập nhật profile.</td><td>Cần Bearer token.</td></tr><tr><td>GET/PATCH</td><td><code>/api/users/me/preferences</code></td><td>Đồng bộ preferredLanguage.</td><td>AppShell sync khi không phải guest.</td></tr><tr><td>GET</td><td><code>/api/pois?lang=vi</code></td><td>Load danh sách POI cho Search/Home/Map.</td><td>Public trước, token sau nếu cần.</td></tr><tr><td>GET</td><td><code>/api/pois/:id</code></td><td>Load POI detail.</td><td>Trả data theo ngôn ngữ.</td></tr><tr><td>GET</td><td><code>/api/pois/:id/menu</code></td><td>Load menu quán.</td><td>Mobile có fallback nhiều endpoint.</td></tr><tr><td>GET</td><td><code>/api/pois/:id/audio</code></td><td>Load audio asset của POI.</td><td>Nếu không có thì app fallback TTS/text.</td></tr><tr><td>GET</td><td><code>/api/pois/favorites</code></td><td>Danh sách quán đã lưu.</td><td>Cần token.</td></tr><tr><td>POST/DELETE</td><td><code>/api/pois/:id/favorite</code></td><td>Lưu/bỏ lưu quán.</td><td>Cần token.</td></tr><tr><td>GET</td><td><code>/api/maps/offline-manifest</code></td><td>Tải manifest map pack.</td><td>OfflineMapPackService dùng khi khởi tạo.</td></tr></tbody></table></div></div>
+</div></section>
+
+<section class="section" id="flows"><div class="panel">
+  <div class="section-head"><div><span class="kicker">09 • Core flows</span><h2>Luồng xử lý quan trọng</h2><p class="desc">Các flow quan trọng của hệ thống mobile-app.</p></div><span class="tag">Sequence + Activity</span></div>
+  <div class="grid-4"><div class="timeline"><h3>Flow A — Search + Map + POI</h3><div class="timeline-item"><h4>1. User mở Search</h4><p>SearchPageModel load user location và gọi PoiService.GetPoisAsync.</p></div><div class="timeline-item"><h4>2. Backend trả POI</h4><p>POI được map sang PoiMapItem/SearchPlaceItem.</p></div><div class="timeline-item"><h4>3. App render list/map</h4><p>SearchPage build HTML Leaflet và hiển thị marker.</p></div><div class="timeline-item"><h4>4. User chọn quán</h4><p>Mở PoiDetailPage hoặc FullMapPage focus đúng POI.</p></div></div><div class="timeline"><h3>Flow B — Nearby + Audio</h3><div class="timeline-item"><h4>1. User chọn Nearby</h4><p>Chọn GPS hoặc pick vị trí trên FullMap.</p></div><div class="timeline-item"><h4>2. Tính khoảng cách</h4><p>App so sánh userLat/userLng với từng POI.</p></div><div class="timeline-item"><h4>3. Sort và đề xuất</h4><p>Danh sách quán gần nhất được đưa lên UI.</p></div><div class="timeline-item"><h4>4. Queue audio</h4><p>PoiAudioPlaybackQueueService phát lần lượt, tránh trùng/overlap.</p></div></div><div class="timeline"><h3>Flow C — Review / Comment</h3><div class="timeline-item"><h4>1. User nhập review</h4><p>Người dùng mở PoiDetailPage, nhập rating và nội dung comment.</p></div><div class="timeline-item"><h4>2. App kiểm tra session</h4><p>Guest hoặc chưa login sẽ được yêu cầu đăng nhập trước khi viết đánh giá.</p></div><div class="timeline-item"><h4>3. Gửi lên backend</h4><p>User mail-login có access token sẽ gửi review qua ReviewService tới <code>POST /api/reviews</code>.</p></div><div class="timeline-item"><h4>4. Admin kiểm duyệt</h4><p>Backend lưu MongoDB, web-admin đọc <code>/api/admin/reviews</code> và hiển thị trong bảng quản lý.</p></div></div><div class="timeline"><h3>Flow D — Xem tất cả review</h3><div class="timeline-item"><h4>1. User bấm Xem tất cả</h4><p>Từ PoiDetailPage, người dùng mở màn hình PoiReviewsPage của quán hiện tại.</p></div><div class="timeline-item"><h4>2. App tải danh sách review</h4><p>ReviewService gọi API lấy đánh giá theo <code>poiId</code> và ngôn ngữ đang chọn.</p></div><div class="timeline-item"><h4>3. Backend đọc MongoDB</h4><p>Backend tìm danh sách đánh giá trong collection <code>reviews</code> theo địa điểm.</p></div><div class="timeline-item"><h4>4. App hiển thị kết quả</h4><p>PoiReviewsPage hiển thị toàn bộ đánh giá hoặc trạng thái chưa có review.</p></div></div></div>
+  <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/07_audio_playback_fallback.svg" data-title="07. Sequence — Audio Playback Fallback">Phóng to</button></div>
+      <h3>07. Sequence — Audio Playback Fallback</h3>
+      <p>Ưu tiên audio asset từ API/cache, nếu thiếu thì fallback đọc bằng TTS từ mô tả POI.</p>
+      <div class="diagram-frame"><img src="diagram/07_audio_playback_fallback.svg" alt="07. Sequence — Audio Playback Fallback" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/08_poi_detail_favorite_audio_map.svg" data-title="08. Sequence — POI Detail / Favorite / Audio / Map">Phóng to</button></div>
+      <h3>08. Sequence — POI Detail / Favorite / Audio / Map</h3>
+      <p>Mở chi tiết quán, tải menu/audio/review, lưu yêu thích và mở bản đồ toàn màn hình.</p>
+      <div class="diagram-frame"><img src="diagram/08_poi_detail_favorite_audio_map.svg" alt="08. Sequence — POI Detail / Favorite / Audio / Map" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/09_fullmap_cloud_offline_pick.svg" data-title="09. Sequence — FullMap Cloud / Offline / Pick Mode">Phóng to</button></div>
+      <h3>09. Sequence — FullMap Cloud / Offline / Pick Mode</h3>
+      <p>FullMapPage dùng MapLibre, cloud/offline/hybrid mode và trả tọa độ về Nearby pick flow.</p>
+      <div class="diagram-frame"><img src="diagram/09_fullmap_cloud_offline_pick.svg" alt="09. Sequence — FullMap Cloud / Offline / Pick Mode" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/10_offline_map_pack_download.svg" data-title="10. Sequence — Offline Map Pack Download">Phóng to</button></div>
+      <h3>10. Sequence — Offline Map Pack Download</h3>
+      <p>Tải manifest, kiểm tra SHA-256, lưu map pack local và kích hoạt mode offline/hybrid.</p>
+      <div class="diagram-frame"><img src="diagram/10_offline_map_pack_download.svg" alt="10. Sequence — Offline Map Pack Download" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/11_profile_language_darkmode_logout.svg" data-title="11. Activity — Profile / Language / Dark Mode / Logout">Phóng to</button></div>
+      <h3>11. Activity — Profile / Language / Dark Mode / Logout</h3>
+      <p>Đổi ngôn ngữ, dark mode, profile info, logout và xóa session/token local.</p>
+      <div class="diagram-frame"><img src="diagram/11_profile_language_darkmode_logout.svg" alt="11. Activity — Profile / Language / Dark Mode / Logout" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/12_localization_update.svg" data-title="12. Sequence — Localization Update">Phóng to</button></div>
+      <h3>12. Sequence — Localization Update</h3>
+      <p>AppText/LanguageService load JSON, cập nhật AppShell tabs và đồng bộ preferredLanguage.</p>
+      <div class="diagram-frame"><img src="diagram/12_localization_update.svg" alt="12. Sequence — Localization Update" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/13_saved_page.svg" data-title="13. Sequence — Saved Page">Phóng to</button></div>
+      <h3>13. Sequence — Saved Page</h3>
+      <p>Đọc danh sách favorite, load POI đã lưu, bỏ lưu và mở lại PoiDetailPage.</p>
+      <div class="diagram-frame"><img src="diagram/13_saved_page.svg" alt="13. Sequence — Saved Page" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/14_mobile_api_data_flow.svg" data-title="14. Sequence — Mobile API / Data Integration">Phóng to</button></div>
+      <h3>14. Sequence — Mobile API / Data Integration</h3>
+      <p>Bản đồ tương tác dữ liệu mobile với AuthService, PoiService, cache và backend API.</p>
+      <div class="diagram-frame"><img src="diagram/14_mobile_api_data_flow.svg" alt="14. Sequence — Mobile API / Data Integration" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/15_review_submission.svg" data-title="15. Review / Comment — Sequence">Phóng to</button></div>
+      <h3>15. Review / Comment — Sequence</h3>
+      <p>Guest bị yêu cầu đăng nhập; user đã đăng nhập gửi rating/comment lên backend, lưu MongoDB và hiển thị ở Web Admin.</p>
+      <div class="diagram-frame"><img src="diagram/15_review_submission.svg" alt="15. Review / Comment — Sequence" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/16_poi_review_retrieval.svg" data-title="16. Sequence — View All Reviews">Phóng to</button></div>
+      <h3>16. Sequence — View All Reviews</h3>
+      <p>Người dùng bấm Xem tất cả, app mở PoiReviewsPage, tải toàn bộ đánh giá theo quán và hiển thị theo ngôn ngữ hiện tại.</p>
+      <div class="diagram-frame"><img src="diagram/16_poi_review_retrieval.svg" alt="16. Sequence — View All Reviews" loading="lazy"></div>
+    </article></div>
+</div></section>
+
+<section class="section" id="rules"><div class="panel">
+  <div class="section-head"><div><span class="kicker">10 • Rules & states</span><h2>Quy tắc nghiệp vụ và trạng thái</h2><p class="desc">Ghi rõ để PRD không bị mơ hồ khi chuyển từ source sang tài liệu.</p></div><span class="tag">Business rules</span></div>
+  <div class="grid-3"><article class="card"><h3>POI visibility</h3><ul><li><code>status</code>: draft / active / hidden.</li><li><code>isVisible</code> quyết định có hiển thị public không.</li><li>POI cần lat/lng hợp lệ để hiển thị map.</li></ul></article><article class="card"><h3>Audio fallback</h3><ul><li>Ưu tiên audio asset từ API.</li><li>Nếu thiếu audio thì dùng fallback speech từ name + short/fullDescription.</li><li>Queue tránh phát chồng nhiều POI.</li></ul></article><article class="card"><h3>Language</h3><ul><li>UI load JSON theo AppText.</li><li>Backend POI gọi <code>?lang=...</code>.</li><li>Guest mode không sync ngôn ngữ về backend.</li></ul></article></div>
+  <div class="callout warn" style="margin-top:18px"><strong>Acceptance demo:</strong> mở backend, đăng nhập app, load POI từ API, dùng Search/Nearby, mở FullMap, nghe audio/TTS, lưu POI, đổi ngôn ngữ/dark mode và chứng minh dữ liệu POI thuộc Hà Tôn Quyền.</div>
+</div></section>
+
+<section class="section" id="diagrams"><div class="panel">
+  <div class="section-head"><div><span class="kicker">11 • Diagram gallery</span><h2>Toàn bộ hình/sơ đồ đã chèn</h2><p class="desc">Tất cả hình/sơ đồ trong folder <code>diagram/</code> đã được chèn vào gói HTML để trình bày và phóng to khi cần.</p></div><span class="tag">30 mục hiển thị</span></div>
+  <div class="diagram-grid">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/01_app_startup_session.svg" data-title="01. Sequence — App Startup &amp; Session">Phóng to</button></div>
+      <h3>01. Sequence — App Startup &amp; Session</h3>
+      <p>Mở app, load AppShell, đồng bộ ngôn ngữ, kiểm tra session và chuẩn bị offline map pack.</p>
+      <div class="diagram-frame"><img src="diagram/01_app_startup_session.svg" alt="01. Sequence — App Startup &amp; Session" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/02_login_register_guest.svg" data-title="02. Sequence — Login / Register / Guest">Phóng to</button></div>
+      <h3>02. Sequence — Login / Register / Guest</h3>
+      <p>Luồng đăng nhập backend, đăng ký và guest mode trước khi vào main tabs.</p>
+      <div class="diagram-frame"><img src="diagram/02_login_register_guest.svg" alt="02. Sequence — Login / Register / Guest" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/03_search_load_map.svg" data-title="03. Sequence — SearchPage Load POI + Map">Phóng to</button></div>
+      <h3>03. Sequence — SearchPage Load POI + Map</h3>
+      <p>SearchPageModel gọi PoiService, lấy POI public theo ngôn ngữ và render marker lên map.</p>
+      <div class="diagram-frame"><img src="diagram/03_search_load_map.svg" alt="03. Sequence — SearchPage Load POI + Map" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/04_search_filter_activity.svg" data-title="04. Activity — Search Filter">Phóng to</button></div>
+      <h3>04. Activity — Search Filter</h3>
+      <p>Người dùng chọn Location / Nearby / Price / Type, app lọc danh sách POI và cập nhật map.</p>
+      <div class="diagram-frame"><img src="diagram/04_search_filter_activity.svg" alt="04. Activity — Search Filter" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/05_nearby_pick_audio_queue.svg" data-title="05. Sequence — Nearby GPS / Pick Location / Audio Queue">Phóng to</button></div>
+      <h3>05. Sequence — Nearby GPS / Pick Location / Audio Queue</h3>
+      <p>GPS hoặc chọn điểm thủ công, tính khoảng cách, lấy quán gần nhất và đưa vào hàng đợi audio.</p>
+      <div class="diagram-frame"><img src="diagram/05_nearby_pick_audio_queue.svg" alt="05. Sequence — Nearby GPS / Pick Location / Audio Queue" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/06_nearby_recommendation.svg" data-title="06. Activity — Nearby Recommendation">Phóng to</button></div>
+      <h3>06. Activity — Nearby Recommendation</h3>
+      <p>Logic xin quyền vị trí, fallback chọn điểm, sort theo khoảng cách và tạo danh sách đề xuất.</p>
+      <div class="diagram-frame"><img src="diagram/06_nearby_recommendation.svg" alt="06. Activity — Nearby Recommendation" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/07_audio_playback_fallback.svg" data-title="07. Sequence — Audio Playback Fallback">Phóng to</button></div>
+      <h3>07. Sequence — Audio Playback Fallback</h3>
+      <p>Ưu tiên audio asset từ API/cache, nếu thiếu thì fallback đọc bằng TTS từ mô tả POI.</p>
+      <div class="diagram-frame"><img src="diagram/07_audio_playback_fallback.svg" alt="07. Sequence — Audio Playback Fallback" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/08_poi_detail_favorite_audio_map.svg" data-title="08. Sequence — POI Detail / Favorite / Audio / Map">Phóng to</button></div>
+      <h3>08. Sequence — POI Detail / Favorite / Audio / Map</h3>
+      <p>Mở chi tiết quán, tải menu/audio/review, lưu yêu thích và mở bản đồ toàn màn hình.</p>
+      <div class="diagram-frame"><img src="diagram/08_poi_detail_favorite_audio_map.svg" alt="08. Sequence — POI Detail / Favorite / Audio / Map" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/09_fullmap_cloud_offline_pick.svg" data-title="09. Sequence — FullMap Cloud / Offline / Pick Mode">Phóng to</button></div>
+      <h3>09. Sequence — FullMap Cloud / Offline / Pick Mode</h3>
+      <p>FullMapPage dùng MapLibre, cloud/offline/hybrid mode và trả tọa độ về Nearby pick flow.</p>
+      <div class="diagram-frame"><img src="diagram/09_fullmap_cloud_offline_pick.svg" alt="09. Sequence — FullMap Cloud / Offline / Pick Mode" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/10_offline_map_pack_download.svg" data-title="10. Sequence — Offline Map Pack Download">Phóng to</button></div>
+      <h3>10. Sequence — Offline Map Pack Download</h3>
+      <p>Tải manifest, kiểm tra SHA-256, lưu map pack local và kích hoạt mode offline/hybrid.</p>
+      <div class="diagram-frame"><img src="diagram/10_offline_map_pack_download.svg" alt="10. Sequence — Offline Map Pack Download" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/11_profile_language_darkmode_logout.svg" data-title="11. Activity — Profile / Language / Dark Mode / Logout">Phóng to</button></div>
+      <h3>11. Activity — Profile / Language / Dark Mode / Logout</h3>
+      <p>Đổi ngôn ngữ, dark mode, profile info, logout và xóa session/token local.</p>
+      <div class="diagram-frame"><img src="diagram/11_profile_language_darkmode_logout.svg" alt="11. Activity — Profile / Language / Dark Mode / Logout" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/12_localization_update.svg" data-title="12. Sequence — Localization Update">Phóng to</button></div>
+      <h3>12. Sequence — Localization Update</h3>
+      <p>AppText/LanguageService load JSON, cập nhật AppShell tabs và đồng bộ preferredLanguage.</p>
+      <div class="diagram-frame"><img src="diagram/12_localization_update.svg" alt="12. Sequence — Localization Update" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/13_saved_page.svg" data-title="13. Sequence — Saved Page">Phóng to</button></div>
+      <h3>13. Sequence — Saved Page</h3>
+      <p>Đọc danh sách favorite, load POI đã lưu, bỏ lưu và mở lại PoiDetailPage.</p>
+      <div class="diagram-frame"><img src="diagram/13_saved_page.svg" alt="13. Sequence — Saved Page" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/14_mobile_api_data_flow.svg" data-title="14. Sequence — Mobile API / Data Integration">Phóng to</button></div>
+      <h3>14. Sequence — Mobile API / Data Integration</h3>
+      <p>Bản đồ tương tác dữ liệu mobile với AuthService, PoiService, cache và backend API.</p>
+      <div class="diagram-frame"><img src="diagram/14_mobile_api_data_flow.svg" alt="14. Sequence — Mobile API / Data Integration" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/15_review_submission.svg" data-title="15. Review / Comment — Sequence">Phóng to</button></div>
+      <h3>15. Review / Comment — Sequence</h3>
+      <p>Guest bị yêu cầu đăng nhập; user đã đăng nhập gửi rating/comment lên backend, lưu MongoDB và hiển thị ở Web Admin.</p>
+      <div class="diagram-frame"><img src="diagram/15_review_submission.svg" alt="15. Review / Comment — Sequence" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/16_poi_review_retrieval.svg" data-title="16. Sequence — View All Reviews">Phóng to</button></div>
+      <h3>16. Sequence — View All Reviews</h3>
+      <p>Người dùng bấm Xem tất cả, app mở PoiReviewsPage, tải toàn bộ đánh giá theo quán và hiển thị theo ngôn ngữ hiện tại.</p>
+      <div class="diagram-frame"><img src="diagram/16_poi_review_retrieval.svg" alt="16. Sequence — View All Reviews" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/chu-c-hang-hoat-dong.png" data-title="Chủ c𞻚 hàng hoạt động">Phóng to</button></div>
+      <h3>Chủ c𞻚 hàng hoạt động</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/chu-c-hang-hoat-dong.png" alt="Chủ c𞻚 hàng hoạt động" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div>
+      <h3>Dev TTS Test</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt Chủ C𞻚 Hàng">Phóng to</button></div>
+      <h3>Duyệt Chủ C𞻚 Hàng</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt Chủ C𞻚 Hàng" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt Nội Dung Thuyết Minh">Phóng to</button></div>
+      <h3>Duyệt Nội Dung Thuyết Minh</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt Nội Dung Thuyết Minh" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/login.png" data-title="Login">Phóng to</button></div>
+      <h3>Login</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/login.png" alt="Login" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div>
+      <h3>Người dùng &amp; Phân quyền</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng &amp; Phân quyền" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nhat-ky-hoat-dong.png" data-title="Nhật ký hoạt động">Phóng to</button></div>
+      <h3>Nhật ký hoạt động</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/nhat-ky-hoat-dong.png" alt="Nhật ký hoạt động" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-menu.png" data-title="Quản lý Menu">Phóng to</button></div>
+      <h3>Quản lý Menu</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/quan-ly-menu.png" alt="Quản lý Menu" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-thuyet-minh.png" data-title="Quản lý thuyết minh">Phóng to</button></div>
+      <h3>Quản lý thuyết minh</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/quan-ly-thuyet-minh.png" alt="Quản lý thuyết minh" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-danh-gia.png" data-title="Quản lý Đánh giá">Phóng to</button></div>
+      <h3>Quản lý Đánh giá</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/quan-ly-danh-gia.png" alt="Quản lý Đánh giá" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-d-diem.png" data-title="Quản lý đ𞲺 điểm">Phóng to</button></div>
+      <h3>Quản lý đ𞲺 điểm</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/quan-ly-d-diem.png" alt="Quản lý đ𞲺 điểm" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-thao-t-nhanh.png" data-title="Dashboard — Thao tผ nhanh">Phóng to</button></div>
+      <h3>Dashboard — Thao tผ nhanh</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/dashboard-thao-t-nhanh.png" alt="Dashboard — Thao tผ nhanh" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-thong-ke-nguoi-dung.png" data-title="Dashboard — Thống kê người dùng">Phóng to</button></div>
+      <h3>Dashboard — Thống kê người dùng</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/dashboard-thong-ke-nguoi-dung.png" alt="Dashboard — Thống kê người dùng" loading="lazy"></div>
+    </article>
+
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-tong-quan-he-thong.png" data-title="Dashboard — Tổng quan hệ thống">Phóng to</button></div>
+      <h3>Dashboard — Tổng quan hệ thống</h3>
+      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
+      <div class="diagram-frame"><img src="diagram/dashboard-tong-quan-he-thong.png" alt="Dashboard — Tổng quan hệ thống" loading="lazy"></div>
+    </article></div>
+  <div class="table-card manifest" style="margin-top:18px"><h3>Manifest sơ đồ</h3><div class="table-scroll"><table><thead><tr><th>#</th><th>Tên</th><th>Nhóm</th><th>File</th></tr></thead><tbody><tr><td>01</td><td>01. Sequence — App Startup &amp; Session</td><td>Mobile sequence/activity</td><td><a href="diagram/01_app_startup_session.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>02</td><td>02. Sequence — Login / Register / Guest</td><td>Mobile sequence/activity</td><td><a href="diagram/02_login_register_guest.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>03</td><td>03. Sequence — SearchPage Load POI + Map</td><td>Mobile sequence/activity</td><td><a href="diagram/03_search_load_map.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>04</td><td>04. Activity — Search Filter</td><td>Mobile sequence/activity</td><td><a href="diagram/04_search_filter_activity.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>05</td><td>05. Sequence — Nearby GPS / Pick Location / Audio Queue</td><td>Mobile sequence/activity</td><td><a href="diagram/05_nearby_pick_audio_queue.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>06</td><td>06. Activity — Nearby Recommendation</td><td>Mobile sequence/activity</td><td><a href="diagram/06_nearby_recommendation.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>07</td><td>07. Sequence — Audio Playback Fallback</td><td>Mobile sequence/activity</td><td><a href="diagram/07_audio_playback_fallback.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>08</td><td>08. Sequence — POI Detail / Favorite / Audio / Map</td><td>Mobile sequence/activity</td><td><a href="diagram/08_poi_detail_favorite_audio_map.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>09</td><td>09. Sequence — FullMap Cloud / Offline / Pick Mode</td><td>Mobile sequence/activity</td><td><a href="diagram/09_fullmap_cloud_offline_pick.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>10</td><td>10. Sequence — Offline Map Pack Download</td><td>Mobile sequence/activity</td><td><a href="diagram/10_offline_map_pack_download.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>11</td><td>11. Activity — Profile / Language / Dark Mode / Logout</td><td>Mobile sequence/activity</td><td><a href="diagram/11_profile_language_darkmode_logout.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>12</td><td>12. Sequence — Localization Update</td><td>Mobile sequence/activity</td><td><a href="diagram/12_localization_update.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>13</td><td>13. Sequence — Saved Page</td><td>Mobile sequence/activity</td><td><a href="diagram/13_saved_page.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>14</td><td>14. Sequence — Mobile API / Data Integration</td><td>Mobile sequence/activity</td><td><a href="diagram/14_mobile_api_data_flow.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>15</td><td>15. Sequence - Review / Comment </td><td>Mobile sequence/activity</td><td><a href="diagram/15_review_submission.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>16</td><td>16. Sequence - View All Reviews</td><td>Mobile sequence/activity</td><td><a href="diagram/16_poi_review_retrieval.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>17</td><td>Chủ c𞻚 hàng hoạt động</td><td>Admin related screenshot</td><td><a href="diagram/chu-c-hang-hoat-dong.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>18</td><td>Dev TTS Test</td><td>Admin related screenshot</td><td><a href="diagram/dev-tts-test.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>19</td><td>Duyệt Chủ C𞻚 Hàng</td><td>Admin related screenshot</td><td><a href="diagram/duyet-chu-c-hang.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>20</td><td>Duyệt Nội Dung Thuyết Minh</td><td>Admin related screenshot</td><td><a href="diagram/duyet-noi-dung-thuyet-minh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>21</td><td>Login</td><td>Admin related screenshot</td><td><a href="diagram/login.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>22</td><td>Người dùng &amp; Phân quyền</td><td>Admin related screenshot</td><td><a href="diagram/nguoi-dung-phan-quyen.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>23</td><td>Nhật ký hoạt động</td><td>Admin related screenshot</td><td><a href="diagram/nhat-ky-hoat-dong.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>24</td><td>Quản lý Menu</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-menu.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>25</td><td>Quản lý thuyết minh</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-thuyet-minh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>26</td><td>Quản lý Đánh giá</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-danh-gia.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>27</td><td>Quản lý đ𞲺 điểm</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-d-diem.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>28</td><td>Dashboard — Thao tผ nhanh</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-thao-t-nhanh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>29</td><td>Dashboard — Thống kê người dùng</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-thong-ke-nguoi-dung.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>30</td><td>Dashboard — Tổng quan hệ thống</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-tong-quan-he-thong.png" target="_blank" rel="noopener">Mở file</a></td></tr></tbody></table></div></div>
+</div></section>
+<footer class="footer">PRD — Hà Tôn Quyền Street Food Review • Cập nhật 04/2026 • Giao diện đã đổi khác bản Vĩnh Khánh</footer>
+</main></div>
+
+<div class="modal" id="modal"><div class="modal-panel"><div class="modal-head"><div class="modal-title" id="modalTitle">Sơ đồ</div><div class="modal-actions"><button id="zoomOut">−</button><button id="zoomIn">+</button><button id="resetZoom">Reset</button><button id="openTab">Mở tab</button><button id="closeModal">Đóng</button></div></div><div class="modal-body" id="modalBody"><img id="modalImg" alt="Diagram"></div></div></div>
+<script>
+const progress=document.getElementById('progress'); const sections=[...document.querySelectorAll('section[id]')]; const links=[...document.querySelectorAll('.nav a')];
+function spy(){let pos=scrollY+120,cur=sections[0]?.id; for(const s of sections){if(pos>=s.offsetTop) cur=s.id;} links.forEach(a=>a.classList.toggle('active',a.getAttribute('href')==='#'+cur)); const max=document.documentElement.scrollHeight-innerHeight; progress.style.transform=`scaleX(${max>0?scrollY/max:0})`;}
+addEventListener('scroll',spy,{passive:true}); addEventListener('load',spy); document.getElementById('menuBtn')?.addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open')); links.forEach(a=>a.addEventListener('click',()=>document.getElementById('sidebar').classList.remove('open')));
+const modal=document.getElementById('modal'), img=document.getElementById('modalImg'), title=document.getElementById('modalTitle'); let zoom=1, current='';
+function apply(){img.style.width=(zoom*100)+'%';}
+document.querySelectorAll('.open-btn,.diagram-frame').forEach(el=>{el.addEventListener('click',e=>{const card=e.target.closest('.diagram-card'); const btn=e.target.closest('.open-btn'); const src=btn?.dataset.src || card.querySelector('img')?.getAttribute('src'); const t=btn?.dataset.title || card.querySelector('h3')?.textContent || 'Sơ đồ'; if(!src) return; current=src; zoom=1; img.src=src; title.textContent=t; apply(); modal.classList.add('open'); document.body.style.overflow='hidden';})});
+document.getElementById('closeModal').onclick=()=>{modal.classList.remove('open');document.body.style.overflow='';img.removeAttribute('src')}; modal.addEventListener('click',e=>{if(e.target===modal) document.getElementById('closeModal').click();}); addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open')) document.getElementById('closeModal').click();});
+document.getElementById('zoomIn').onclick=()=>{zoom=Math.min(zoom*1.2,6);apply();}; document.getElementById('zoomOut').onclick=()=>{zoom=Math.max(zoom/1.2,.25);apply();}; document.getElementById('resetZoom').onclick=()=>{zoom=1;apply();}; document.getElementById('openTab').onclick=()=>{if(current) open(current,'_blank','noopener');};
+</script>
+</body></html>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Pages.FullMapPage"
+             Shell.NavBarIsVisible="False"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="Black">
+
+    <Grid>
+
+        <!-- Full map -->
+        <WebView x:Name="FullMapWebView"
+                 Navigating="OnMapNavigating"
+                 HorizontalOptions="Fill"
+                 VerticalOptions="Fill" />
+
+        <!-- Back button -->
+        <Border BackgroundColor="#EFFFFFFF"
+                StrokeThickness="0"
+                WidthRequest="46"
+                HeightRequest="46"
+                Padding="0"
+                Margin="16,80,0,0"
+                HorizontalOptions="Start"
+                VerticalOptions="Start"
+                ZIndex="99">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="23" />
+            </Border.StrokeShape>
+
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="OnBackTapped" />
+            </Border.GestureRecognizers>
+
+            <Label Text="←"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center"
+                   VerticalTextAlignment="Center"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+
+        <!-- Selected POI card -->
+        <Border BackgroundColor="{AppThemeBinding Light=White, Dark=#1E1E1E}"
+                StrokeThickness="0"
+                Padding="14"
+                Margin="16"
+                VerticalOptions="End"
+                IsVisible="{Binding HasSelectedPoi}"
+                ZIndex="98">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="18" />
+            </Border.StrokeShape>
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="{Binding SelectedPoi.Name}"
+                       FontSize="16"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light=#1F1F1F, Dark=White}" />
+
+                <Label Text="{Binding SelectedPoi.Address}"
+                       FontSize="13"
+                       TextColor="{AppThemeBinding Light=#666666, Dark=#CFCFCF}" />
+
+                <HorizontalStackLayout Spacing="8">
+                    <Label Text="★"
+                           FontSize="14"
+                           TextColor="#F97316" />
+
+                    <Label Text="{Binding SelectedPoi.RatingText}"
+                           FontSize="14"
+                           TextColor="{AppThemeBinding Light=#555555, Dark=#D0D0D0}" />
+                </HorizontalStackLayout>
+
+                <Border BackgroundColor="#F97316"
+                        StrokeThickness="0"
+                        Padding="0,12">
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="14" />
+                    </Border.StrokeShape>
+
+                    <Border.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="OnViewPoiDetailTapped" />
+                    </Border.GestureRecognizers>
+
+                    <Label Text="View details"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           FontSize="14"
+                           FontAttributes="Bold"
+                           TextColor="White" />
+                </Border>
+            </VerticalStackLayout>
+        </Border>
+
+    </Grid>
+</ContentPage>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="HTQSFR.Controls.FoodCardView"
+             x:Name="ThisCard">
+
+    <Border BackgroundColor="White"
+            Stroke="#ECECEC"
+            StrokeThickness="1"
+            StrokeShape="RoundRectangle 18">
+
+        <Border.Shadow>
+            <Shadow Brush="#22000000"
+                    Offset="0,4"
+                    Radius="10"
+                    Opacity="0.18" />
+        </Border.Shadow>
+
+        <Grid RowDefinitions="190,Auto,Auto">
+
+            <Grid>
+                <Image Source="{Binding Source={x:Reference ThisCard}, Path=ImageUrl}"
+                       Aspect="AspectFill"
+                       HeightRequest="190" />
+
+                <Border BackgroundColor="#6F5A52"
+                        Padding="12,6"
+                        StrokeThickness="0"
+                        StrokeShape="RoundRectangle 14"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Start"
+                        Margin="12,12,0,0">
+                    <Label Text="{Binding Source={x:Reference ThisCard}, Path=BadgeText}"
+                           TextColor="White"
+                           FontSize="12"
+                           FontAttributes="Bold" />
+                </Border>
+
+                <Label Text="{Binding Source={x:Reference ThisCard}, Path=FavoriteIcon}"
+                       FontSize="24"
+                       TextColor="#FF8A00"
+                       HorizontalOptions="End"
+                       VerticalOptions="Start"
+                       Margin="0,12,14,0" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+                  Padding="14,12,14,4"
+                  ColumnDefinitions="*,Auto">
+                <Label Text="{Binding Source={x:Reference ThisCard}, Path=Title}"
+                       FontSize="18"
+                       FontAttributes="Bold"
+                       TextColor="#222222"
+                       LineBreakMode="TailTruncation" />
+
+                <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                    <Label Text="☆"
+                           FontSize="16"
+                           TextColor="#F97316" />
+                    <Label Text="{Binding Source={x:Reference ThisCard}, Path=RatingText}"
+                           FontSize="16"
+                           FontAttributes="Bold"
+                           TextColor="#666666" />
+                </HorizontalStackLayout>
+            </Grid>
+
+            <Label Grid.Row="2"
+                   Margin="14,0,14,14"
+                   Text="{Binding Source={x:Reference ThisCard}, Path=MetaText}"
+                   FontSize="14"
+                   TextColor="#7A7A7A" />
+        </Grid>
+    </Border>
+</ContentView>

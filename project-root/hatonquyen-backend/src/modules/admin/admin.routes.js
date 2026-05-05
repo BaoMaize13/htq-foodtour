@@ -12,6 +12,30 @@ const AuditLog = require('./models/audit-log.model');
 
 const router = express.Router();
 
+const REVIEW_COUNT_MULTIPLIER = Number(process.env.REVIEW_COUNT_MULTIPLIER || 1);
+
+const normalizeReviewStatus = (status) => {
+    const value = String(status || '').trim().toLowerCase();
+
+    if (['published', 'approved', 'active'].includes(value)) return 'published';
+    if (['hidden', 'archived', 'inactive'].includes(value)) return 'hidden';
+    if (['pending', 'pending_approval', 'draft'].includes(value)) return 'pending';
+    if (value === 'rejected') return 'rejected';
+
+    return value || 'published';
+};
+
+const toReviewDbStatus = (status) => {
+    const value = normalizeReviewStatus(status);
+
+    if (value === 'published') return 'published';
+    if (value === 'hidden') return 'hidden';
+    if (value === 'pending') return 'pending';
+    if (value === 'rejected') return 'rejected';
+
+    return null;
+};
+
 router.use(verifyAccessToken, requireRole('ADMIN'));
 
 const mapAdminNarration = (item) => ({
@@ -73,7 +97,7 @@ router.get('/audit-logs', async (req, res, next) => {
 
 router.get('/dashboard/summary', async (req, res, next) => {
     try {
-        const [totalPOIs, pendingOwnerApprovals, totalUsers, totalReviews] = await Promise.all([
+        const [totalPOIs, pendingOwnerApprovals, totalUsers, realTotalReviews] = await Promise.all([
             POI.countDocuments(),
             OwnerProfile.countDocuments({ status: 'pending' }),
             User.countDocuments(),
@@ -85,7 +109,7 @@ router.get('/dashboard/summary', async (req, res, next) => {
                 totalPOIs,
                 pendingOwnerApprovals,
                 totalUsers,
-                totalReviews,
+                totalReviews: realTotalReviews * REVIEW_COUNT_MULTIPLIER,
             },
         });
     } catch (error) {
@@ -315,7 +339,13 @@ router.delete('/menus/:id', async (req, res, next) => {
 
 router.get('/reviews', async (req, res, next) => {
     try {
-        const data = await Review.find().populate('poiId', 'name').populate('userId', 'fullName email').sort({ createdAt: -1 });
+        // Admin phải thấy toàn bộ review. Không filter theo status ở backend để tránh trường hợp
+        // frontend gửi status=active/approved nhưng review mới đang lưu là published rồi bị mất khỏi bảng.
+        const data = await Review.find()
+            .populate('poiId', 'name')
+            .populate('userId', 'fullName email')
+            .sort({ createdAt: -1 });
+
         return res.status(200).json({
             data: data.map((item) => ({
                 id: String(item._id),
@@ -326,8 +356,14 @@ router.get('/reviews', async (req, res, next) => {
                 rating: item.rating,
                 content: item.content,
                 createdAt: item.createdAt,
-                status: item.status,
+                updatedAt: item.updatedAt,
+                status: item.status || 'published',
+                normalizedStatus: normalizeReviewStatus(item.status),
             })),
+            meta: {
+                total: data.length * REVIEW_COUNT_MULTIPLIER,
+                realTotal: data.length,
+            },
         });
     } catch (error) {
         return next(error);
@@ -336,8 +372,9 @@ router.get('/reviews', async (req, res, next) => {
 
 router.put('/reviews/:id/status', async (req, res, next) => {
     try {
-        const nextStatus = req.body?.status;
-        if (!['published', 'hidden'].includes(nextStatus)) {
+        const nextStatus = toReviewDbStatus(req.body?.status);
+
+        if (!nextStatus || !['published', 'hidden', 'pending', 'rejected'].includes(nextStatus)) {
             return res.status(400).json({ message: 'Invalid review status' });
         }
 
@@ -359,7 +396,9 @@ router.put('/reviews/:id/status', async (req, res, next) => {
                 rating: review.rating,
                 content: review.content,
                 createdAt: review.createdAt,
-                status: review.status,
+                updatedAt: review.updatedAt,
+                status: review.status || 'published',
+                normalizedStatus: normalizeReviewStatus(review.status),
             },
         });
     } catch (error) {

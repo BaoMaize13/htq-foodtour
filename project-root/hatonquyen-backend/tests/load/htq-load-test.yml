@@ -1,0 +1,49 @@
+config:
+  target: "http://localhost:5000"
+  phases:
+    - duration: 60
+      arrivalRate: 5
+      name: "Warm up - 5 users/sec"
+
+    - duration: 120
+      arrivalRate: 20
+      name: "Medium load - 20 users/sec"
+
+    - duration: 120
+      arrivalRate: 50
+      name: "High load - 50 users/sec"
+
+    - duration: 120
+      arrivalRate: 100
+      name: "Stress load - 100 users/sec"
+
+  processor: "./htq-load-functions.js"
+
+scenarios:
+  - name: "Guest user opens app, loads POIs, sends heartbeat"
+    flow:
+      - function: "generateSession"
+
+      - post:
+          url: "/api/analytics/presence/start"
+          json:
+            installationId: "{{ installationId }}"
+            appSessionId: "{{ appSessionId }}"
+            platform: "android"
+            appVersion: "1.0.0"
+            language: "vi"
+
+      - get:
+          url: "/api/pois"
+
+      - think: 3
+
+      - post:
+          url: "/api/analytics/presence/heartbeat"
+          json:
+            appSessionId: "{{ appSessionId }}"
+
+      - think: 5
+
+      - get:
+          url: "/api/analytics/live-count"

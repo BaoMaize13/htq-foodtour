@@ -14,9 +14,58 @@ export const deleteAdminReview = (id: string) => requestJson(`/api/admin/reviews
 export const fetchAdminActiveOwners = () => requestJson('/api/admin/owners/active');
 export const toggleAdminOwnerSuspend = (id: string) => requestJson(`/api/admin/owners/${id}/suspend`, { method: 'PUT' });
 
-export const fetchAdminUsers = () => requestJson('/api/admin/users');
-export const updateAdminUserRole = (id: string, role: 'admin' | 'moderator' | 'editor' | 'user' | 'owner') => requestJson(`/api/admin/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) });
-export const updateAdminUserStatus = (id: string, status: 'active' | 'suspended') => requestJson(`/api/admin/users/${id}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
+export type AdminUserRole = 'admin' | 'moderator' | 'editor' | 'user' | 'owner';
+export type AdminUserStatus = 'active' | 'suspended';
+
+export interface AdminUserRow {
+    id: string;
+    fullName: string;
+    email: string;
+    role: AdminUserRole;
+    accountStatus: AdminUserStatus;
+}
+
+export interface FetchAdminUsersParams {
+    search?: string;
+    page?: number;
+    limit?: number;
+}
+
+export interface AdminUsersMeta {
+    page: number;
+    limit: number;
+    total: number;
+    totalPages: number;
+    hasNextPage: boolean;
+    hasPrevPage: boolean;
+}
+
+export const fetchAdminUsers = (params: FetchAdminUsersParams = {}) => {
+    const query = new URLSearchParams();
+
+    if (params.search?.trim()) {
+        query.set('search', params.search.trim());
+    }
+
+    if (params.page) {
+        query.set('page', String(params.page));
+    }
+
+    if (params.limit) {
+        query.set('limit', String(params.limit));
+    }
+
+    const suffix = query.toString() ? `?${query.toString()}` : '';
+
+    return requestJson<{
+        data: AdminUserRow[];
+        meta: AdminUsersMeta;
+    }>(`/api/admin/users${suffix}`);
+};
+export const updateAdminUserRole = (id: string, role: AdminUserRole) =>
+    requestJson<{ data: AdminUserRow }>(`/api/admin/users/${id}/role`, { method: 'PUT', body: JSON.stringify({ role }) });
+export const updateAdminUserStatus = (id: string, status: AdminUserStatus) =>
+    requestJson<{ data: AdminUserRow }>(`/api/admin/users/${id}/status`, { method: 'PUT', body: JSON.stringify({ status }) });
 
 export const fetchAdminAudioTasks = () => requestJson('/api/admin/audio-tasks');
 

@@ -5,7 +5,7 @@
     <ActiveDebugFramework>net10.0-android</ActiveDebugFramework>
     <ActiveDebugProfile>Xiaomi 2107113SG (Android 14.0 - API 34)</ActiveDebugProfile>
     <SelectedPlatformGroup>PhysicalDevice</SelectedPlatformGroup>
-    <DefaultDevice>htq_sfr</DefaultDevice>
+    <DefaultDevice>pixel_7_-_api_36_0</DefaultDevice>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net10.0-android|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

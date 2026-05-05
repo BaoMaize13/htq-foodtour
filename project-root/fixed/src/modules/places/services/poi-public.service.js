@@ -269,9 +269,9 @@ const calculateDistanceMeters = (originLat, originLng, targetLat, targetLng) => 
     const a =
         Math.sin(dLat / 2) * Math.sin(dLat / 2) +
         Math.sin(dLng / 2) *
-        Math.sin(dLng / 2) *
-        Math.cos(lat1) *
-        Math.cos(lat2);
+            Math.sin(dLng / 2) *
+            Math.cos(lat1) *
+            Math.cos(lat2);
 
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
@@ -539,10 +539,10 @@ const toPublicPoiDto = (item, deviceLocation, lang = 'vi') => {
         status: item.status,
         category: item.categoryDoc
             ? {
-                id: String(item.categoryDoc._id),
-                name: localizedCategoryName,
-                slug: item.categoryDoc.slug,
-            }
+                  id: String(item.categoryDoc._id),
+                  name: localizedCategoryName,
+                  slug: item.categoryDoc.slug,
+              }
             : item.category || null,
         updatedAt: item.updatedAt,
     };

@@ -57,7 +57,7 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
       <div class="chips"><span class="chip"><span class="dot" style="color:#c2410c"></span>.NET MAUI + C# + XAML</span><span class="chip"><span class="dot" style="color:#0f766e"></span>Node.js / Express</span><span class="chip"><span class="dot" style="color:#a16207"></span>MongoDB / Mongoose</span><span class="chip"><span class="dot" style="color:#7c3aed"></span>Leaflet + MapLibre + PMTiles</span><span class="chip"><span class="dot" style="color:#db2777"></span>10 ngôn ngữ UI</span></div>
     </div>
     <aside class="hero-aside">
-      <div class="metric-card"><h3 style="margin:0 0 8px">Phạm vi bản PRD</h3><p style="margin:0;color:#ffedd5">Tập trung trình bày mobile app nhưng vẫn có phần backend/database để chứng minh app có dữ liệu thật và hợp đồng API rõ ràng.</p><div class="metric-grid"><div class="metric"><b>4</b><span>tab chính</span></div><div class="metric"><b>10</b><span>ngôn ngữ</span></div><div class="metric"><b>8+</b><span>collection lõi</span></div><div class="metric"><b>30</b><span>ảnh/sơ đồ, gồm Web Admin</span></div></div></div>
+      <div class="metric-card"><h3 style="margin:0 0 8px">Phạm vi bản PRD</h3><p style="margin:0;color:#ffedd5">Tập trung trình bày mobile app nhưng vẫn có phần backend/database để chứng minh app có dữ liệu thật và hợp đồng API rõ ràng.</p><div class="metric-grid"><div class="metric"><b>4</b><span>tab chính</span></div><div class="metric"><b>10</b><span>ngôn ngữ</span></div><div class="metric"><b>8+</b><span>collection lõi</span></div><div class="metric"><b>26</b><span>ảnh/sơ đồ, gồm Web Admin</span></div></div></div>
     </aside>
   </div>
 </header>
@@ -91,28 +91,76 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
     <article class="card"><span class="badge">AuthZ</span><h3>Người dùng &amp; phân quyền</h3><ul><li>Quản lý user/admin/owner.</li><li>Duyệt đăng ký chủ cửa hàng trước khi cho phép quản lý nội dung.</li><li>Phân quyền bằng JWT middleware và <code>requireRole</code> ở backend.</li></ul></article>
   </div>
   <div class="table-card" style="margin-top:18px"><h3>Module Web Admin và dữ liệu liên quan</h3><div class="table-scroll"><table><thead><tr><th>Module</th><th>Chức năng chính</th><th>Backend/API hoặc collection liên quan</th><th>Ảnh trong PRD</th></tr></thead><tbody>
-    <tr><td>Dashboard</td><td>Tổng quan hệ thống, thao tác nhanh, thống kê người dùng.</td><td><code>/api/admin/dashboard/summary</code>, analytics, live sessions.</td><td>dashboard-tong-quan-he-thong.png, dashboard-thao-t-nhanh.png</td></tr>
-    <tr><td>POI / Địa điểm</td><td>CRUD địa điểm, tọa độ, trạng thái hiển thị, category.</td><td><code>/api/places</code>, <code>pois</code>, <code>categories</code>.</td><td>quan-ly-d-diem.png</td></tr>
-    <tr><td>Menu</td><td>Quản lý món ăn theo quán, giá, trạng thái.</td><td><code>/api/admin/menus</code>, <code>menuitems</code>.</td><td>quan-ly-menu.png</td></tr>
-    <tr><td>Narration/Audio</td><td>Quản lý script thuyết minh, duyệt nội dung, TTS/audio asset.</td><td><code>/api/admin/narrations</code>, <code>/api/narrations</code>, <code>narrations</code>, <code>audioassets</code>.</td><td>quan-ly-thuyet-minh.png, dev-tts-test.png</td></tr>
-    <tr><td>Review</td><td>Kiểm duyệt đánh giá, ẩn/xóa review sai phạm.</td><td><code>/api/admin/reviews</code>, <code>reviews</code>.</td><td>quan-ly-danh-gia.png</td></tr>
-    <tr><td>User/Owner</td><td>Quản lý người dùng, phân quyền, duyệt chủ cửa hàng.</td><td><code>/api/admin/users</code>, <code>/api/users/admin/owners/pending</code>, <code>users</code>, <code>roles</code>, <code>ownerprofiles</code>.</td><td>nguoi-dung-phan-quyen.png, duyet-chu-c-hang.png</td></tr>
-    <tr><td>Audit log</td><td>Theo dõi hành động quản trị và thay đổi dữ liệu.</td><td><code>/api/admin/audit-logs</code>, <code>auditlogs</code>.</td><td>nhat-ky-hoat-dong.png</td></tr>
+    <tr><td>Dashboard</td><td>Tổng quan hệ thống, thao tác nhanh, thống kê người dùng.</td><td><code>/api/admin/dashboard/summary</code>, analytics, live sessions.</td><td>Dashboard.png</td></tr>
+    <tr><td>POI / Địa điểm</td><td>CRUD địa điểm, tọa độ, trạng thái hiển thị, category.</td><td><code>/api/places</code>, <code>pois</code>, <code>categories</code>.</td><td>Place Management.png, POI Creation.png, POI Management Update.png</td></tr>
+    <tr><td>Menu</td><td>Quản lý món ăn theo quán, giá, trạng thái.</td><td><code>/api/admin/menus</code>, <code>menuitems</code>.</td><td>Menu Management.png</td></tr>
+    <tr><td>Narration/Audio</td><td>Quản lý script thuyết minh, duyệt nội dung, TTS/audio asset.</td><td><code>/api/admin/narrations</code>, <code>/api/narrations</code>, <code>narrations</code>, <code>audioassets</code>.</td><td>Narration Management.png, Dev TTS.png</td></tr>
+    <tr><td>Review</td><td>Kiểm duyệt đánh giá, ẩn/xóa review sai phạm.</td><td><code>/api/admin/reviews</code>, <code>reviews</code>.</td><td>Review Management.png</td></tr>
+    <tr><td>User/Owner</td><td>Quản lý người dùng, phân quyền, duyệt chủ cửa hàng.</td><td><code>/api/admin/users</code>, <code>/api/users/admin/owners/pending</code>, <code>users</code>, <code>roles</code>, <code>ownerprofiles</code>.</td><td>Owner Registration Approval.png</td></tr>
+    <tr><td>Audit log</td><td>Theo dõi hành động quản trị và thay đổi dữ liệu.</td><td><code>/api/admin/audit-logs</code>, <code>auditlogs</code>.</td><td>Dashboard.png</td></tr>
   </tbody></table></div></div>
   <div class="callout" style="margin-top:18px"><strong>Vai trò của Web Admin trong hệ thống:</strong> Web Admin không phải phần user mobile trực tiếp dùng, nhưng là nơi tạo và kiểm soát toàn bộ dữ liệu mà mobile hiển thị. Vì vậy PRD cần có riêng phần Web Admin để chứng minh hệ thống không chỉ là app tĩnh.</div>
-  <div class="diagram-grid" style="margin-top:18px">
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-tong-quan-he-thong.png" data-title="Dashboard — Tổng quan hệ thống">Phóng to</button></div><h3>Dashboard — Tổng quan hệ thống</h3><p>Màn hình tổng quan số liệu và trạng thái hệ thống.</p><div class="diagram-frame"><img src="diagram/dashboard-tong-quan-he-thong.png" alt="Dashboard tổng quan hệ thống" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-thao-t-nhanh.png" data-title="Dashboard — Thao tác nhanh">Phóng to</button></div><h3>Dashboard — Thao tác nhanh</h3><p>Các shortcut quản trị để chuyển nhanh tới module quan trọng.</p><div class="diagram-frame"><img src="diagram/dashboard-thao-t-nhanh.png" alt="Dashboard thao tác nhanh" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dashboard-thong-ke-nguoi-dung.png" data-title="Dashboard — Thống kê người dùng">Phóng to</button></div><h3>Dashboard — Thống kê người dùng</h3><p>Thống kê người dùng/phân quyền theo dữ liệu hệ thống.</p><div class="diagram-frame"><img src="diagram/dashboard-thong-ke-nguoi-dung.png" alt="Dashboard thống kê người dùng" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-d-diem.png" data-title="Quản lý địa điểm">Phóng to</button></div><h3>Quản lý địa điểm</h3><p>Quản trị danh sách POI/quán ăn hiển thị trên mobile.</p><div class="diagram-frame"><img src="diagram/quan-ly-d-diem.png" alt="Quản lý địa điểm" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-menu.png" data-title="Quản lý Menu">Phóng to</button></div><h3>Quản lý Menu</h3><p>Quản lý món ăn thuộc từng quán/POI.</p><div class="diagram-frame"><img src="diagram/quan-ly-menu.png" alt="Quản lý menu" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-thuyet-minh.png" data-title="Quản lý thuyết minh">Phóng to</button></div><h3>Quản lý thuyết minh</h3><p>Quản lý nội dung audio/narration theo địa điểm và ngôn ngữ.</p><div class="diagram-frame"><img src="diagram/quan-ly-thuyet-minh.png" alt="Quản lý thuyết minh" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div><h3>Dev TTS Test</h3><p>Kiểm thử tạo/preview giọng đọc TTS trước khi dùng trong app.</p><div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt nội dung thuyết minh">Phóng to</button></div><h3>Duyệt nội dung thuyết minh</h3><p>Kiểm duyệt script/nội dung trước khi xuất bản.</p><div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt nội dung thuyết minh" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/quan-ly-danh-gia.png" data-title="Quản lý đánh giá">Phóng to</button></div><h3>Quản lý đánh giá</h3><p>Kiểm duyệt review/rating của người dùng.</p><div class="diagram-frame"><img src="diagram/quan-ly-danh-gia.png" alt="Quản lý đánh giá" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div><h3>Người dùng &amp; phân quyền</h3><p>Quản lý role, trạng thái tài khoản, phân quyền admin/owner/user.</p><div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng và phân quyền" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt chủ cửa hàng">Phóng to</button></div><h3>Duyệt chủ cửa hàng</h3><p>Duyệt hồ sơ owner trước khi cho phép quản lý nội dung.</p><div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt chủ cửa hàng" loading="lazy"></div></article>
-    <article class="diagram-card"><div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/nhat-ky-hoat-dong.png" data-title="Nhật ký hoạt động">Phóng to</button></div><h3>Nhật ký hoạt động</h3><p>Ghi nhận hành động quản trị quan trọng để truy vết.</p><div class="diagram-frame"><img src="diagram/nhat-ky-hoat-dong.png" alt="Nhật ký hoạt động" loading="lazy"></div></article>
+    <div class="diagram-grid" style="margin-top:18px">
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Dashboard.png" data-title="Dashboard tổng quan">Phóng to</button></div>
+      <h3>Dashboard tổng quan</h3>
+      <p>Màn hình tổng quan số liệu hệ thống, thao tác nhanh và trạng thái quản trị.</p>
+      <div class="diagram-frame"><img src="diagram/Dashboard.png" alt="Dashboard tổng quan" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Login.png" data-title="Đăng nhập Web Admin">Phóng to</button></div>
+      <h3>Đăng nhập Web Admin</h3>
+      <p>Luồng đăng nhập quản trị trước khi truy cập dashboard và các module admin.</p>
+      <div class="diagram-frame"><img src="diagram/Login.png" alt="Đăng nhập Web Admin" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Place%20Management.png" data-title="Quản lý địa điểm">Phóng to</button></div>
+      <h3>Quản lý địa điểm</h3>
+      <p>Quản trị danh sách POI/quán ăn, địa chỉ, tọa độ và trạng thái hiển thị.</p>
+      <div class="diagram-frame"><img src="diagram/Place%20Management.png" alt="Quản lý địa điểm" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/POI%20Creation.png" data-title="Tạo mới POI">Phóng to</button></div>
+      <h3>Tạo mới POI</h3>
+      <p>Form tạo địa điểm mới, nhập thông tin quán, mô tả, tọa độ, danh mục và hình ảnh.</p>
+      <div class="diagram-frame"><img src="diagram/POI%20Creation.png" alt="Tạo mới POI" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/POI%20Management%20Update.png" data-title="Cập nhật POI">Phóng to</button></div>
+      <h3>Cập nhật POI</h3>
+      <p>Cập nhật thông tin địa điểm đã có để dữ liệu mobile luôn đồng bộ với backend.</p>
+      <div class="diagram-frame"><img src="diagram/POI%20Management%20Update.png" alt="Cập nhật POI" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Menu%20Management.png" data-title="Quản lý menu">Phóng to</button></div>
+      <h3>Quản lý menu</h3>
+      <p>Quản lý món ăn theo từng quán/POI, gồm tên món, giá, hình ảnh và trạng thái hiển thị.</p>
+      <div class="diagram-frame"><img src="diagram/Menu%20Management.png" alt="Quản lý menu" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Narration%20Management.png" data-title="Quản lý thuyết minh">Phóng to</button></div>
+      <h3>Quản lý thuyết minh</h3>
+      <p>Quản lý nội dung thuyết minh/audio theo địa điểm và ngôn ngữ.</p>
+      <div class="diagram-frame"><img src="diagram/Narration%20Management.png" alt="Quản lý thuyết minh" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Dev%20TTS.png" data-title="Dev TTS Test">Phóng to</button></div>
+      <h3>Dev TTS Test</h3>
+      <p>Kiểm thử tạo/preview giọng đọc TTS trước khi đưa audio vào app.</p>
+      <div class="diagram-frame"><img src="diagram/Dev%20TTS.png" alt="Dev TTS Test" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Review%20Management.png" data-title="Quản lý đánh giá">Phóng to</button></div>
+      <h3>Quản lý đánh giá</h3>
+      <p>Kiểm duyệt review/rating của người dùng, hỗ trợ ẩn hoặc xử lý đánh giá không phù hợp.</p>
+      <div class="diagram-frame"><img src="diagram/Review%20Management.png" alt="Quản lý đánh giá" loading="lazy"></div>
+    </article>
+    <article class="diagram-card">
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Owner%20Registration%20Approval.png" data-title="Duyệt chủ cửa hàng">Phóng to</button></div>
+      <h3>Duyệt chủ cửa hàng</h3>
+      <p>Duyệt hồ sơ owner trước khi cho phép quản lý nội dung liên quan đến quán.</p>
+      <div class="diagram-frame"><img src="diagram/Owner%20Registration%20Approval.png" alt="Duyệt chủ cửa hàng" loading="lazy"></div>
+    </article>
   </div>
 </div></section>
 
@@ -166,48 +214,7 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
 <section class="section" id="backend"><div class="panel">
   <div class="section-head"><div><span class="kicker">06 • Backend</span><h2>Backend Node.js/Express</h2><p class="desc">Backend Node.js/Express là lớp API và nghiệp vụ đứng sau Mobile App và Web Admin. Backend xác thực JWT, kiểm role, đọc/ghi MongoDB, cung cấp dữ liệu POI/menu/review/audio và các API quản trị.</p></div><span class="tag">Express modules</span></div>
   <div class="grid-3"><article class="card"><h3>Users/Auth</h3><ul><li><code>POST /api/users/login</code></li><li><code>POST /api/users/register-owner</code></li><li><code>PUT /api/users/me</code></li><li>JWT + role middleware.</li></ul></article><article class="card"><h3>Places/POI</h3><ul><li>Public POI API cho mobile.</li><li>Admin/owner CRUD POI.</li><li>Category, geofenceRadius, audioPriority, isVisible/status.</li></ul></article><article class="card"><h3>Menu/Review/Favorite</h3><ul><li>Menu items theo POI.</li><li>Review rating 1–5.</li><li>Favorite user ↔ POI unique.</li></ul></article><article class="card"><h3>Narration/Audio</h3><ul><li>Narration script theo ngôn ngữ.</li><li>AudioAsset uploaded/TTS.</li><li>Content approval và audio batch jobs.</li></ul></article><article class="card"><h3>Maps</h3><ul><li>Offline manifest.</li><li>Pack files, style assets, fonts.</li><li>Phục vụ FullMap offline/hybrid.</li></ul></article><article class="card"><h3>Analytics/Admin</h3><ul><li>Live session/presence.</li><li>Dashboard summary.</li><li>Audit logs, moderation.</li></ul></article></div>
-  <div class="diagram-grid" style="margin-top:18px">
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/chu-c-hang-hoat-dong.png" data-title="Chủ c𞻚 hàng hoạt động">Phóng to</button></div>
-      <h3>Chủ c𞻚 hàng hoạt động</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/chu-c-hang-hoat-dong.png" alt="Chủ c𞻚 hàng hoạt động" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div>
-      <h3>Dev TTS Test</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt Chủ C𞻚 Hàng">Phóng to</button></div>
-      <h3>Duyệt Chủ C𞻚 Hàng</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt Chủ C𞻚 Hàng" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt Nội Dung Thuyết Minh">Phóng to</button></div>
-      <h3>Duyệt Nội Dung Thuyết Minh</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt Nội Dung Thuyết Minh" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/login.png" data-title="Login">Phóng to</button></div>
-      <h3>Login</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/login.png" alt="Login" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div>
-      <h3>Người dùng &amp; Phân quyền</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng &amp; Phân quyền" loading="lazy"></div>
-    </article></div>
+  <div class="callout" style="margin-top:18px"><strong>Ghi chú:</strong> Các sơ đồ/giao diện Web Admin đã được gom ở mục <strong>04 — Web Admin</strong> và mục <strong>11 — Diagram gallery</strong>. Backend section tập trung mô tả API, module xử lý nghiệp vụ và kết nối MongoDB.</div>
 </div></section>
 
 <section class="section" id="database"><div class="panel">
@@ -327,7 +334,7 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
 </div></section>
 
 <section class="section" id="diagrams"><div class="panel">
-  <div class="section-head"><div><span class="kicker">11 • Diagram gallery</span><h2>Toàn bộ hình/sơ đồ đã chèn</h2><p class="desc">Tất cả hình/sơ đồ trong folder <code>diagram/</code> đã được chèn vào gói HTML để trình bày và phóng to khi cần.</p></div><span class="tag">30 mục hiển thị</span></div>
+  <div class="section-head"><div><span class="kicker">11 • Diagram gallery</span><h2>Toàn bộ hình/sơ đồ đã chèn</h2><p class="desc">Tất cả hình/sơ đồ trong folder <code>diagram/</code> đã được chèn vào gói HTML để trình bày và phóng to khi cần.</p></div><span class="tag">26 mục hiển thị</span></div>
   <div class="diagram-grid">
     <article class="diagram-card">
       <div class="diagram-topline"><span>Mobile sequence/activity</span><button class="open-btn" data-src="diagram/01_app_startup_session.svg" data-title="01. Sequence — App Startup &amp; Session">Phóng to</button></div>
@@ -442,101 +449,64 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
     </article>
 
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/chu-c-hang-hoat-dong.png" data-title="Chủ c𞻚 hàng hoạt động">Phóng to</button></div>
-      <h3>Chủ c𞻚 hàng hoạt động</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/chu-c-hang-hoat-dong.png" alt="Chủ c𞻚 hàng hoạt động" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Dashboard.png" data-title="Dashboard tổng quan">Phóng to</button></div>
+      <h3>Dashboard tổng quan</h3>
+      <p>Màn hình tổng quan số liệu hệ thống, thao tác nhanh và trạng thái quản trị.</p>
+      <div class="diagram-frame"><img src="diagram/Dashboard.png" alt="Dashboard tổng quan" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dev-tts-test.png" data-title="Dev TTS Test">Phóng to</button></div>
-      <h3>Dev TTS Test</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/dev-tts-test.png" alt="Dev TTS Test" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Login.png" data-title="Đăng nhập Web Admin">Phóng to</button></div>
+      <h3>Đăng nhập Web Admin</h3>
+      <p>Luồng đăng nhập quản trị trước khi truy cập dashboard và các module admin.</p>
+      <div class="diagram-frame"><img src="diagram/Login.png" alt="Đăng nhập Web Admin" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-chu-c-hang.png" data-title="Duyệt Chủ C𞻚 Hàng">Phóng to</button></div>
-      <h3>Duyệt Chủ C𞻚 Hàng</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/duyet-chu-c-hang.png" alt="Duyệt Chủ C𞻚 Hàng" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Place%20Management.png" data-title="Quản lý địa điểm">Phóng to</button></div>
+      <h3>Quản lý địa điểm</h3>
+      <p>Quản trị danh sách POI/quán ăn, địa chỉ, tọa độ và trạng thái hiển thị.</p>
+      <div class="diagram-frame"><img src="diagram/Place%20Management.png" alt="Quản lý địa điểm" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/duyet-noi-dung-thuyet-minh.png" data-title="Duyệt Nội Dung Thuyết Minh">Phóng to</button></div>
-      <h3>Duyệt Nội Dung Thuyết Minh</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/duyet-noi-dung-thuyet-minh.png" alt="Duyệt Nội Dung Thuyết Minh" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/POI%20Creation.png" data-title="Tạo mới POI">Phóng to</button></div>
+      <h3>Tạo mới POI</h3>
+      <p>Form tạo địa điểm mới, nhập thông tin quán, mô tả, tọa độ, danh mục và hình ảnh.</p>
+      <div class="diagram-frame"><img src="diagram/POI%20Creation.png" alt="Tạo mới POI" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/login.png" data-title="Login">Phóng to</button></div>
-      <h3>Login</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/login.png" alt="Login" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/POI%20Management%20Update.png" data-title="Cập nhật POI">Phóng to</button></div>
+      <h3>Cập nhật POI</h3>
+      <p>Cập nhật thông tin địa điểm đã có để dữ liệu mobile luôn đồng bộ với backend.</p>
+      <div class="diagram-frame"><img src="diagram/POI%20Management%20Update.png" alt="Cập nhật POI" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nguoi-dung-phan-quyen.png" data-title="Người dùng &amp; Phân quyền">Phóng to</button></div>
-      <h3>Người dùng &amp; Phân quyền</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/nguoi-dung-phan-quyen.png" alt="Người dùng &amp; Phân quyền" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Menu%20Management.png" data-title="Quản lý menu">Phóng to</button></div>
+      <h3>Quản lý menu</h3>
+      <p>Quản lý món ăn theo từng quán/POI, gồm tên món, giá, hình ảnh và trạng thái hiển thị.</p>
+      <div class="diagram-frame"><img src="diagram/Menu%20Management.png" alt="Quản lý menu" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/nhat-ky-hoat-dong.png" data-title="Nhật ký hoạt động">Phóng to</button></div>
-      <h3>Nhật ký hoạt động</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/nhat-ky-hoat-dong.png" alt="Nhật ký hoạt động" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-menu.png" data-title="Quản lý Menu">Phóng to</button></div>
-      <h3>Quản lý Menu</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/quan-ly-menu.png" alt="Quản lý Menu" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-thuyet-minh.png" data-title="Quản lý thuyết minh">Phóng to</button></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Narration%20Management.png" data-title="Quản lý thuyết minh">Phóng to</button></div>
       <h3>Quản lý thuyết minh</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/quan-ly-thuyet-minh.png" alt="Quản lý thuyết minh" loading="lazy"></div>
+      <p>Quản lý nội dung thuyết minh/audio theo địa điểm và ngôn ngữ.</p>
+      <div class="diagram-frame"><img src="diagram/Narration%20Management.png" alt="Quản lý thuyết minh" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-danh-gia.png" data-title="Quản lý Đánh giá">Phóng to</button></div>
-      <h3>Quản lý Đánh giá</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/quan-ly-danh-gia.png" alt="Quản lý Đánh giá" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Dev%20TTS.png" data-title="Dev TTS Test">Phóng to</button></div>
+      <h3>Dev TTS Test</h3>
+      <p>Kiểm thử tạo/preview giọng đọc TTS trước khi đưa audio vào app.</p>
+      <div class="diagram-frame"><img src="diagram/Dev%20TTS.png" alt="Dev TTS Test" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/quan-ly-d-diem.png" data-title="Quản lý đ𞲺 điểm">Phóng to</button></div>
-      <h3>Quản lý đ𞲺 điểm</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/quan-ly-d-diem.png" alt="Quản lý đ𞲺 điểm" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Review%20Management.png" data-title="Quản lý đánh giá">Phóng to</button></div>
+      <h3>Quản lý đánh giá</h3>
+      <p>Kiểm duyệt review/rating của người dùng, hỗ trợ ẩn hoặc xử lý đánh giá không phù hợp.</p>
+      <div class="diagram-frame"><img src="diagram/Review%20Management.png" alt="Quản lý đánh giá" loading="lazy"></div>
     </article>
-
     <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-thao-t-nhanh.png" data-title="Dashboard — Thao tผ nhanh">Phóng to</button></div>
-      <h3>Dashboard — Thao tผ nhanh</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/dashboard-thao-t-nhanh.png" alt="Dashboard — Thao tผ nhanh" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-thong-ke-nguoi-dung.png" data-title="Dashboard — Thống kê người dùng">Phóng to</button></div>
-      <h3>Dashboard — Thống kê người dùng</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/dashboard-thong-ke-nguoi-dung.png" alt="Dashboard — Thống kê người dùng" loading="lazy"></div>
-    </article>
-
-    <article class="diagram-card">
-      <div class="diagram-topline"><span>Admin related screenshot</span><button class="open-btn" data-src="diagram/dashboard-tong-quan-he-thong.png" data-title="Dashboard — Tổng quan hệ thống">Phóng to</button></div>
-      <h3>Dashboard — Tổng quan hệ thống</h3>
-      <p>Ảnh/sơ đồ lấy từ thư mục diagram do người dùng cung cấp.</p>
-      <div class="diagram-frame"><img src="diagram/dashboard-tong-quan-he-thong.png" alt="Dashboard — Tổng quan hệ thống" loading="lazy"></div>
+      <div class="diagram-topline"><span>Web Admin UI</span><button class="open-btn" data-src="diagram/Owner%20Registration%20Approval.png" data-title="Duyệt chủ cửa hàng">Phóng to</button></div>
+      <h3>Duyệt chủ cửa hàng</h3>
+      <p>Duyệt hồ sơ owner trước khi cho phép quản lý nội dung liên quan đến quán.</p>
+      <div class="diagram-frame"><img src="diagram/Owner%20Registration%20Approval.png" alt="Duyệt chủ cửa hàng" loading="lazy"></div>
     </article></div>
   <div class="table-card manifest" style="margin-top:18px"><h3>Manifest sơ đồ</h3><div class="table-scroll"><table><thead><tr><th>#</th><th>Tên</th><th>Nhóm</th><th>File</th></tr></thead><tbody><tr><td>01</td><td>01. Sequence — App Startup &amp; Session</td><td>Mobile sequence/activity</td><td><a href="diagram/01_app_startup_session.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
 <tr><td>02</td><td>02. Sequence — Login / Register / Guest</td><td>Mobile sequence/activity</td><td><a href="diagram/02_login_register_guest.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
@@ -554,20 +524,16 @@ pre{white-space:pre;overflow:auto;background:#1c1917;color:#ffedd5;border-radius
 <tr><td>14</td><td>14. Sequence — Mobile API / Data Integration</td><td>Mobile sequence/activity</td><td><a href="diagram/14_mobile_api_data_flow.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
 <tr><td>15</td><td>15. Sequence - Review / Comment </td><td>Mobile sequence/activity</td><td><a href="diagram/15_review_submission.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
 <tr><td>16</td><td>16. Sequence - View All Reviews</td><td>Mobile sequence/activity</td><td><a href="diagram/16_poi_review_retrieval.svg" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>17</td><td>Chủ c𞻚 hàng hoạt động</td><td>Admin related screenshot</td><td><a href="diagram/chu-c-hang-hoat-dong.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>18</td><td>Dev TTS Test</td><td>Admin related screenshot</td><td><a href="diagram/dev-tts-test.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>19</td><td>Duyệt Chủ C𞻚 Hàng</td><td>Admin related screenshot</td><td><a href="diagram/duyet-chu-c-hang.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>20</td><td>Duyệt Nội Dung Thuyết Minh</td><td>Admin related screenshot</td><td><a href="diagram/duyet-noi-dung-thuyet-minh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>21</td><td>Login</td><td>Admin related screenshot</td><td><a href="diagram/login.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>22</td><td>Người dùng &amp; Phân quyền</td><td>Admin related screenshot</td><td><a href="diagram/nguoi-dung-phan-quyen.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>23</td><td>Nhật ký hoạt động</td><td>Admin related screenshot</td><td><a href="diagram/nhat-ky-hoat-dong.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>24</td><td>Quản lý Menu</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-menu.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>25</td><td>Quản lý thuyết minh</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-thuyet-minh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>26</td><td>Quản lý Đánh giá</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-danh-gia.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>27</td><td>Quản lý đ𞲺 điểm</td><td>Admin related screenshot</td><td><a href="diagram/quan-ly-d-diem.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>28</td><td>Dashboard — Thao tผ nhanh</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-thao-t-nhanh.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>29</td><td>Dashboard — Thống kê người dùng</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-thong-ke-nguoi-dung.png" target="_blank" rel="noopener">Mở file</a></td></tr>
-<tr><td>30</td><td>Dashboard — Tổng quan hệ thống</td><td>Admin related screenshot</td><td><a href="diagram/dashboard-tong-quan-he-thong.png" target="_blank" rel="noopener">Mở file</a></td></tr></tbody></table></div></div>
+<tr><td>17</td><td>Dashboard tổng quan</td><td>Web Admin UI</td><td><a href="diagram/Dashboard.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>18</td><td>Đăng nhập Web Admin</td><td>Web Admin UI</td><td><a href="diagram/Login.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>19</td><td>Quản lý địa điểm</td><td>Web Admin UI</td><td><a href="diagram/Place%20Management.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>20</td><td>Tạo mới POI</td><td>Web Admin UI</td><td><a href="diagram/POI%20Creation.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>21</td><td>Cập nhật POI</td><td>Web Admin UI</td><td><a href="diagram/POI%20Management%20Update.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>22</td><td>Quản lý menu</td><td>Web Admin UI</td><td><a href="diagram/Menu%20Management.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>23</td><td>Quản lý thuyết minh</td><td>Web Admin UI</td><td><a href="diagram/Narration%20Management.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>24</td><td>Dev TTS Test</td><td>Web Admin UI</td><td><a href="diagram/Dev%20TTS.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>25</td><td>Quản lý đánh giá</td><td>Web Admin UI</td><td><a href="diagram/Review%20Management.png" target="_blank" rel="noopener">Mở file</a></td></tr>
+<tr><td>26</td><td>Duyệt chủ cửa hàng</td><td>Web Admin UI</td><td><a href="diagram/Owner%20Registration%20Approval.png" target="_blank" rel="noopener">Mở file</a></td></tr></tbody></table></div></div>
 </div></section>
 <footer class="footer">PRD — Hà Tôn Quyền Street Food Review • Cập nhật 04/2026 • Giao diện đã đổi khác bản Vĩnh Khánh</footer>
 </main></div>

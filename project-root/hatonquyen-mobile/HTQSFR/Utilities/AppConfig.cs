@@ -3,7 +3,7 @@ namespace HTQSFR.Utilities;
 public static class ApiConfig
 {
 #if ANDROID || IOS
-    public const string BaseUrl = "http://192.168.1.192:5000/api/";
+    public const string BaseUrl = "http://192.168.1.19:5000/api/";
 #else
     public const string BaseUrl = "http://localhost:5000/api/";
 #endif
